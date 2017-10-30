@@ -79,3 +79,10 @@ There are still cases in which this script produces valid PDF/A-1B files which a
 + the inclusion of a validator is trivial, and the _free_, open source validator included here (in contrast to the validator they're using, which is _probably_ a commercial solution) can easily handle "too complex" PDF files without going in timeout
 
 So, now the question is: what is the university still waiting for?
+
+## FAQs
+
+## Licensing
++ PDF2ARCHIVE is under GPLv3+
++ The included ICC file is licensed in compliance with Adobe's license agreement: https://www.adobe.com/support/downloads/iccprofiles/icc_eula_win_dist.html
++ VeraPDF is dual-licensed under MPLv2+ and GPLv3+: http://verapdf.org/home/#licensing
