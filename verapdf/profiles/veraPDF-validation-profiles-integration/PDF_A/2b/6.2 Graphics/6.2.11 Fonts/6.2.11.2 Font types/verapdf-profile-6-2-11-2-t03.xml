@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.952+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.2 Font types - BaseFont entry</name>
+        <description>All fonts and font programs used in a conforming file, regardless of rendering mode usage, shall conform to the provisions
+	in ISO 32000-1:2008, 9.6 and 9.7, as well as to the font specifications referenced by these provisions. 
+	BaseFont - name - (Required) The PostScript name of the font</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDFont">
+            <id specification="ISO_19005_1" clause="6.2.11.2" testNumber="3"/>
+            <description>All fonts and font programs used in a conforming file, regardless of rendering mode usage, shall conform to the provisions
+			in ISO 32000-1:2008, 9.6 and 9.7, as well as to the font specifications referenced by these provisions. 
+			BaseFont - name - (Required) The PostScript name of the font</description>
+            <test>Subtype == &quot;Type3&quot; || fontName != null</test>
+            <error>
+                <message>A BaseFont entry is missing or has invalid type</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO32000-1:2008" clause="9.6.2.1, Table 111"/>
+                <reference specification="ISO32000-1:2008" clause="9.7.4.1, Table 117"/>
+                <reference specification="ISO32000-1:2008" clause="9.7.6.1, Table 121"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-03-11T11:42:21.427+03:00">
+        <name>ISO 19005-2:2011 - 6.9 Optional content - Name key unique</name>
+        <description>Each optional content configuration dictionary shall contain the Name key, whose value shall be unique amongst all optional content configuration 
+		dictionaries within the PDF/A-2 file.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDOCConfig">
+            <id specification="ISO_19005_2" clause="6.9" testNumber="2"/>
+            <description>Each optional content configuration dictionary shall contain the Name key, whose value shall be unique amongst all optional content configuration 
+			dictionaries within the PDF/A-2 file.</description>
+            <test>hasDuplicateName == false</test>
+            <error>
+                <message>Optional content configuration dictionary has duplicated name</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

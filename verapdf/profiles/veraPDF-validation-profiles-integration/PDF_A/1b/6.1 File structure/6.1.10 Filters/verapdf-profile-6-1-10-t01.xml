@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.279+03:00">
+        <name>ISO 19005-1:2005 - 6.1.10 Filters - LZW</name>
+        <description>The LZWDecode filter shall not be permitted</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosFilter">
+            <id specification="ISO_19005_1" clause="6.1.10" testNumber="1"/>
+            <description>The LZWDecode filter shall not be permitted</description>
+            <test>internalRepresentation != &quot;LZWDecode&quot;</test>
+            <error>
+                <message>LZW compression is used</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

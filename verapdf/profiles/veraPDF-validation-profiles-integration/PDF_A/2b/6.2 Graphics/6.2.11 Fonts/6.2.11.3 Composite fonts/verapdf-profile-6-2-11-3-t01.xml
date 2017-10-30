@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.022+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.3 Composite fonts - CIDSystemInfo</name>
+        <description>For any given composite (Type 0) font within a conforming file, the CIDSystemInfo entry in its CIDFont dictionary and its Encoding dictionary 
+	shall have the following relationship: 
+	- If the Encoding key in the Type 0 font dictionary is Identity-H or Identity-V, any values of Registry, Ordering, 
+	and Supplement may be used in the CIDSystemInfo entry of the CIDFont. 
+	- Otherwise, the corresponding Registry and Ordering strings in both CIDSystemInfo dictionaries shall be identical, and the value of the Supplement key in 
+	the CIDSystemInfo dictionary of the CIDFont shall be greater than or equal to the Supplement key in the CIDSystemInfo dictionary of the CMap.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDType0Font">
+            <id specification="ISO_19005_1" clause="6.2.11.3" testNumber="1"/>
+            <description>For any given composite (Type 0) font within a conforming file, the CIDSystemInfo entry in its CIDFont dictionary and its Encoding dictionary 
+			shall have the following relationship: 
+			- If the Encoding key in the Type 0 font dictionary is Identity-H or Identity-V, any values of Registry, Ordering, 
+			and Supplement may be used in the CIDSystemInfo entry of the CIDFont. 
+			- Otherwise, the corresponding Registry and Ordering strings in both CIDSystemInfo dictionaries shall be identical, and the value of the Supplement key in 
+			the CIDSystemInfo dictionary of the CIDFont shall be greater than or equal to the Supplement key in the CIDSystemInfo dictionary of the CMap.</description>
+            <test>cmapName == &quot;Identity-H&quot; || cmapName == &quot;Identity-V&quot; || (areRegistryOrderingCompatible == true &amp;&amp; isSupplementCompatible == true)</test>
+            <error>
+                <message>CiDSystemInfo entries the CIDFont and CMap dictionaries of a Type 0 font are not compatible</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

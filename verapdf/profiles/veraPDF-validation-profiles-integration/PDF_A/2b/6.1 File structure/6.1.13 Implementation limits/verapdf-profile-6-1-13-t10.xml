@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.396+03:00">
+        <name>ISO 19005-2:2011 - 6.1.12 Implementation limits - CID</name>
+        <description>A conforming file shall not contain a CID value greater than 65535.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CMapFile">
+            <id specification="ISO_19005_1" clause="6.1.13" testNumber="10"/>
+            <description>A conforming file shall not contain a CID value greater than 65535.</description>
+            <test>maximalCID &lt;= 65535</test>
+            <error>
+                <message>Maximum value of a CID (65535) is exceeded</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

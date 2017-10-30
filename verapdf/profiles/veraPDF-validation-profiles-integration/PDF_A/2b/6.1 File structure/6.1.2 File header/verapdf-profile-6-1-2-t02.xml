@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.467+03:00">
+        <name>ISO 19005-2:2011 - 6.1.2 File header - Binary comment</name>
+        <description>The aforementioned EOL marker shall be immediately followed by a % (25h) character followed by at least four bytes, each of whose encoded byte values 
+	shall have a decimal value greater than 127</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosDocument">
+            <id specification="ISO_19005_1" clause="6.1.2" testNumber="2"/>
+            <description>The aforementioned EOL marker shall be immediately followed by a % (25h) character followed by at least four bytes, each of whose encoded 
+			byte values shall have a decimal value greater than 127</description>
+            <test>headerByte1 &gt; 127 &amp;&amp; headerByte2 &gt; 127 &amp;&amp; headerByte3 &gt; 127 &amp;&amp; headerByte4 &gt; 127</test>
+            <error>
+                <message>Binary comment in the file header is missing or does not comply PDF/A requirements</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

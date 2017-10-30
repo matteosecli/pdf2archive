@@ -1,0 +1,266 @@
+#!/usr/bin/env bash
+
+# PDF2ARCHIVE 0.1
+# (C) 2017 Matteo Seclì <secli.matteo@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+#=====# INITIALIZE VARIABLES #=====#
+VERSION="0.1"
+INPUT=""
+OUTPUT=""
+QUALITYOPTS=""
+DEBUG=false
+VALIDATE=false
+MSGOPTS="-dQUIET -sstdout=/dev/null"
+#ERROPTS="2>/dev/null"
+PDFTITLE=""
+PDFAUTHOR=""
+PDFSUBJECT=""
+
+
+#=====# HELP FUNCTION #=====#
+help()
+{
+    echo \
+"--------------------------------
+|   PDF2ARCHIVE, version $VERSION   |
+--------------------------------
+
+OVERVIEW:
+  Simple Ghostscript-based script to (try to) convert a PDF file into a PDF/A-1B file
+
+USAGE:
+  $0 [options] input.pdf [output.pdf]
+
+EXAMPLES:
+  Convert 'input.pdf' in PDF/A-1B format; the output is 'input-PDFA.pdf':
+      $0 input.pdf
+  Convert 'input.pdf' in PDF/A-1B format; the output is 'output.pdf':
+      $0 input.pdf output.pdf
+  Convert 'input.pdf' in PDF/A-1B format and perform a high-quality compression:
+      $0 --quality=high input.pdf
+  Convert 'input.pdf' in PDF/A-1B format and specify the document title:
+      $0 --title="Title of your nice document" input.pdf
+  Convert 'input.pdf' in PDF/A-1B format and validate the result:
+      $0 --validate input.pdf
+
+OPTIONS:
+  -h, --help          Show the help
+  --quality=<value>   Set the quality of the output when downsampling. The possible values
+                      are 'high', 'medium' and 'low', where 'high' gives the highest output
+                      quality. By specifying no option, no additional downsample is done.
+  --title=<value>     Title of the resulting PDF/A file
+  --author=<value>    Author of the resulting PDF/A file
+  --subject=<value>   Subject of the resulting PDF/A file
+  --validate          Validate the resulting file. The validation is done with VeraPDF, you
+                      need a working Java installation.
+  --debug             Write additional debug information on screen
+  -v, --version       Show the program version
+
+LICENSE:
+  GPLv3
+
+AUTHORS:
+  (C) 2017 Matteo Seclì"
+}
+
+
+#=====# RUN HELPER FUNCTION #=====#
+run() {
+    if $DEBUG; then
+        #v=$(exec 2>&1 && set -x && set -- "$@")
+        #echo "#${v#*--}"
+        "$@"
+    else
+        "$@" 2>/dev/null #>/dev/null 2>&1
+    fi
+}
+
+
+#=====# CHECKS #=====#
+if [ "$(which gs)" == "" ]; then
+    echo "  ERROR: Ghostscript is not installed or it's not in the path"
+    exit
+fi
+
+
+#=====# INPUT PARSER #=====#
+while [ "$1" != "" ]; do
+    PARAM=`echo $1 | awk -F= '{print $1}'`
+    VALUE=`echo $1 | awk -F= '{print $2}'`
+    case $PARAM in
+        -h | --help)
+            help
+            exit
+            ;;
+        -v | --version)
+            echo $VERSION
+            exit
+            ;;
+        --debug)
+            DEBUG=true
+            MSGOPTS=""
+            #ERROPTS=""
+            ;;
+        --quality)
+            if [ "$VALUE" == "high" ]; then
+                QUALITYOPTS="-dPDFSETTINGS=/printer"
+            elif [ "$VALUE" == "medium" ]; then
+                QUALITYOPTS="-dPDFSETTINGS=/ebook"
+            elif [ "$VALUE" == "low" ]; then
+                QUALITYOPTS="-dPDFSETTINGS=/screen"
+            else
+                echo "  ERROR: unknown quality option '$VALUE'"
+                help
+                exit 1
+            fi
+            ;;
+        --title)
+            PDFTITLE=$VALUE
+            ;;
+        --author)
+            PDFAUTHOR=$VALUE
+            ;;
+        --subject)
+            PDFSUBJECT=$VALUE
+            ;;
+        --validate)
+            if [ "$(which java)" == "" ]; then
+                echo "  ERROR: Java is not installed or it's not in the path"
+                exit 1
+            fi
+            VALIDATE=true
+            ;;
+        *.pdf)
+            if [ "$INPUT" == "" ]; then
+                INPUT=$PARAM
+            elif [ "$OUTPUT" == "" ]; then
+                OUTPUT=$PARAM
+            else
+                echo "  ERROR: too many PDF files as input!"
+                help
+                exit 1
+            fi
+            ;;
+        *)
+            echo "  ERROR: unknown parameter \"$PARAM\""
+            help
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+
+#=====# SET UP ALL THE STUFF #=====#
+echo "=== Welcome to PDF2ARCHIVE ==="
+if [ "$OUTPUT" == "" ]; then
+    OUTPUT="${INPUT%.pdf}-PDFA.pdf"
+fi
+TMPFILE=$(mktemp)
+if $DEBUG; then
+    echo "  DEBUG: running PDF2ARCHIVE, version $VERSION"
+    echo "  DEBUG: using Ghostscript binary at $(which gs), version $(gs --version)"
+    echo "  DEBUG: the input file is '$INPUT'"
+    echo "  DEBUG: the output file is '$OUTPUT'"
+    echo "  DEBUG: the intermediate processing file is $TMPFILE"
+    echo "  DEBUG: the current quality options are '$QUALITYOPTS'"
+    echo "  DEBUG: PDF title '$PDFTITLE'"
+    echo "  DEBUG: PDF author '$PDFAUTHOR'"
+    echo "  DEBUG: PDF subject '$PDFSUBJECT'"
+fi
+
+
+#=====# CREATE THE PS DEFINITION FILE #=====#
+echo "  Creating the definition file..."
+echo \
+"%!
+% This prefix file for creating a PDF/A document is derived from
+% the sample included with Ghostscript 9.07, released under the
+% GNU Affero General Public License.
+% Modified 4/15/2013 by MCB Systems.
+
+% Feel free to modify entries marked with \"Customize\".
+
+% This assumes an ICC profile to reside in the file (AdobeRGB1998.icc),
+% unless the user modifies the corresponding line below.
+
+% The color space described by the ICC profile must correspond to the
+% ProcessColorModel specified when using this prefix file (GRAY with
+% DeviceGray, RGB with DeviceRGB, and CMYK with DeviceCMYK).
+
+% Define entries in the document Info dictionary :
+
+/ICCProfile (AdobeRGB1998.icc)   % Customize.
+def
+
+[ /Title ($PDFTITLE)                  % Customize.
+  /Author ($PDFAUTHOR)
+  /Subject ($PDFSUBJECT)
+  /DOCINFO pdfmark
+
+% Define an ICC profile :
+
+[/_objdef {icc_PDFA} /type /stream /OBJ pdfmark
+[{icc_PDFA} <</N systemdict /ProcessColorModel get /DeviceGray eq {1} {systemdict /ProcessColorModel get /DeviceRGB eq {3} {4} ifelse} ifelse >> /PUT pdfmark
+[{icc_PDFA} ICCProfile (r) file /PUT pdfmark
+
+% Define the output intent dictionary :
+
+[/_objdef {OutputIntent_PDFA} /type /dict /OBJ pdfmark
+[{OutputIntent_PDFA} <<
+  /Type /OutputIntent             % Must be so (the standard requires).
+  /S /GTS_PDFA1                   % Must be so (the standard requires).
+  /DestOutputProfile {icc_PDFA}            % Must be so (see above).
+  /OutputConditionIdentifier (AdobeRGB1998)      % Customize
+>> /PUT pdfmark
+[{Catalog} <</OutputIntents [ {OutputIntent_PDFA} ]>> /PUT pdfmark
+" > PDFA_def.ps
+
+
+#=====# DO THE ACTUAL CONVERSION #=====#
+echo "  Compressing PDF & embedding fonts..."
+run gs $MSGOPTS \
+    -dBATCH -dNOPAUSE -dNOOUTERSAVE \
+    -dCompatibilityLevel=1.4 \
+    -dEmbedAllFonts=true -dSubsetFonts=true \
+    -dCompressFonts=true -dCompressPages=true \
+    -dUseCIEColor -sColorConversionStrategy=RGB \
+    -dDownsampleMonoImages=false -dDownsampleGrayImages=false -dDownsampleColorImages=false \
+    -dAutoFilterColorImages=false -dAutoFilterGrayImages=false \
+    -sDEVICE=pdfwrite \
+    -sOutputFile=$TMPFILE $INPUT
+echo "  Converting to PDF/A-1B..."
+run gs $MSGOPTS \
+    -dPDFA=1 -dBATCH -dNOPAUSE -dNOOUTERSAVE \
+    $QUALITYOPTS \
+    -dCompatibilityLevel=1.4 -dPDFACompatibilityPolicy=1 \
+    -dUseCIEColor -sProcessColorModel=DeviceRGB -sColorConversionStrategy=RGB \
+    -sOutputICCProfile=$PWD/AdobeRGB1998.icc \
+    -sDEVICE=pdfwrite \
+    -sOutputFile=$OUTPUT $PWD/PDFA_def.ps $TMPFILE
+echo "  Removing temporary files..."
+rm $TMPFILE
+echo "  Done, now ESSE3 is happy! ;)"
+
+
+#=====# VALIDATE THE RESULT #=====#
+if $VALIDATE; then
+    echo "  Validating resulting file..."
+    echo "  $(./verapdf/verapdf --extract --flavour 1b --format text $OUTPUT)"
+else
+    echo "  Suggestion: validate the resulting PDF to be sure it's PDF/A-1B compliant."
+fi

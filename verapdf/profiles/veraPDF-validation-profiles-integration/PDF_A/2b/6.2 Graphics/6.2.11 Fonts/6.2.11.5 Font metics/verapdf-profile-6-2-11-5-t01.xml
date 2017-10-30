@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.188+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.5 Font metrics</name>
+        <description>For every font embedded in a conforming file and used for rendering, the glyph width information in the font dictionary and in the embedded 
+	font program shall be consistent.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="Glyph">
+            <id specification="ISO_19005_1" clause="6.2.11.5" testNumber="1"/>
+            <description>For every font embedded in a conforming file and used for rendering, the glyph width information in the font dictionary and in the embedded 
+			font program shall be consistent.</description>
+            <test>renderingMode == 3 || isWidthConsistent == null || isWidthConsistent == true</test>
+            <error>
+                <message>Glyph width information in the embedded font program is not consistent with the Widths entry of the font dictionary</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

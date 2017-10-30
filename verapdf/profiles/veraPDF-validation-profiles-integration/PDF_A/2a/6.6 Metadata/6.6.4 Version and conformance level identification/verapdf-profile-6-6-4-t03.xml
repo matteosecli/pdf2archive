@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.146+03:00">
+        <name>ISO 19005-2:2011 - 6.6.4 Version and conformance level identification - Conformance level.</name>
+        <description>A Level A conforming file shall specify the value of pdfaid:conformance as A. A Level B conforming file shall specify the value of 
+		pdfaid:conformance as B. A Level U conforming file shall specify the value of pdfaid:conformance as U.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDFAIdentification">
+            <id specification="ISO_19005_2" clause="6.6.4" testNumber="3"/>
+            <description>A Level A conforming file shall specify the value of pdfaid:conformance as A. A Level B conforming file shall specify the value of 
+			pdfaid:conformance as B. A Level U conforming file shall specify the value of pdfaid:conformance as U.</description>
+            <test>conformance == &quot;A&quot;</test>
+            <error>
+                <message>The &quot;conformance&quot; property of the PDF/A Identification Schema is %1 instead of &quot;B&quot; for PDF/A-2b conforming file.</message>
+                <arguments>
+                    <argument>conformance</argument>
+                </arguments>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

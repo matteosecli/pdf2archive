@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.344+03:00">
+        <name>ISO 19005-2:2011 - 6.2.4 Colour Spaces - 6.2.4.3 Uncalibrated/Device colour spaces - DeviceCMYK</name>
+        <description>DeviceCMYK shall only be used if a device independent DefaultCMYK colour space has been set or if a DeviceN-based DefaultCMYK colour space
+	has been set when the DeviceCMYK colour space is used or the file has a PDF/A OutputIntent that contains a CMYK destination profile.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDDeviceCMYK">
+            <id specification="ISO_19005_2" clause="6.2.4.3" testNumber="3"/>
+            <description>DeviceCMYK shall only be used if a device independent DefaultCMYK colour space has been set or if a DeviceN-based DefaultCMYK colour space
+			has been set when the DeviceCMYK colour space is used or the file has a PDF/A OutputIntent that contains a CMYK destination profile.</description>
+            <test>gOutputCS != null &amp;&amp; gOutputCS == &quot;CMYK&quot;</test>
+            <error>
+                <message>DeviceCMYK colour space is used without CMYK output intent profile</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables>
+        <variable name="gOutputCS" object="ICCOutputProfile">
+            <defaultValue>null</defaultValue>
+            <value>S == &quot;GTS_PDFA1&quot; ? colorSpace : gOutputCS</value>
+        </variable>
+    </variables>
+</profile>

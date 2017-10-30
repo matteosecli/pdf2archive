@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.557+03:00">
+        <name>ISO 19005-2:2011 - 6.3.1 Annotation types</name>
+        <description>Annotation types not defined in ISO 32000-1 shall not be permitted. Additionally, the 3D, Sound, Screen and Movie types shall not be permitted.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDAnnot">
+            <id specification="ISO_19005_1" clause="6.3.1" testNumber="1"/>
+            <description>Annotation types not defined in ISO 32000-1 shall not be permitted. Additionally, the 3D, Sound, Screen and Movie types shall not be permitted.</description>
+            <test>Subtype == &quot;Text&quot; || Subtype == &quot;Link&quot; || Subtype == &quot;FreeText&quot; || Subtype == &quot;Line&quot; || 
+			Subtype == &quot;Square&quot; || Subtype == &quot;Circle&quot; || Subtype == &quot;Polygon&quot; || Subtype == &quot;PolyLine&quot; ||
+			Subtype == &quot;Highlight&quot; || Subtype == &quot;Underline&quot; ||	Subtype == &quot;Squiggly&quot; || Subtype == &quot;StrikeOut&quot; || 
+			Subtype == &quot;Stamp&quot; || Subtype == &quot;Caret&quot; || Subtype == &quot;Ink&quot; || Subtype == &quot;Popup&quot; || 
+			Subtype == &quot;FileAttachment&quot; || Subtype == &quot;Widget&quot; || Subtype == &quot;PrinterMark&quot; || Subtype == &quot;TrapNet&quot; ||
+			Subtype == &quot;Watermark&quot; || Subtype == &quot;Redact&quot;</test>
+            <error>
+                <message>Unknown or not permitted annotation type</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="12.5.6.1, Table 169"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

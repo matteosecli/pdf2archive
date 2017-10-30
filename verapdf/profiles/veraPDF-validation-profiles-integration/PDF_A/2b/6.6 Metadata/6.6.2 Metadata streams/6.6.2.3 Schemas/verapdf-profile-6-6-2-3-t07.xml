@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.641+03:00">
+        <name>ISO 19005-2:2011 - 6.6.2.3 Schemas - All properties are defined</name>
+        <description>All properties specified in XMP form shall use either the predefined schemas defined in the XMP Specification, 
+		ISO 19005-1 or this part of ISO 19005, or any extension schemas that comply with 6.6.2.3.2.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="XMPProperty">
+            <id specification="ISO_19005_2" clause="6.6.2.3" testNumber="7"/>
+            <description>All properties specified in XMP form shall use either the predefined schemas defined in the XMP Specification,
+			ISO 19005-1 or this part of ISO 19005, or any extension schemas that comply with 6.6.2.3.2.</description>
+            <test>(isPredefinedInXMP2005 == true || isDefinedInMainPackage == true || isDefinedInCurrentPackage == true) &amp;&amp; isValueTypeCorrect == true</test>
+            <error>
+                <message>%1</message>
+                <arguments>
+                    <argument>errorMessage</argument>
+                </arguments>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

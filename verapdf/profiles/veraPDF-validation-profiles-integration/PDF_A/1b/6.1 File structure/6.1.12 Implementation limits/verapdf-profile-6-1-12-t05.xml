@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.571+03:00">
+        <name>ISO 19005-1:2005 - 6.1.12 Implementation limits - Array</name>
+        <description>Maximum capacity of an array (in elements) is 8191</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosArray">
+            <id specification="ISO_19005_1" clause="6.1.12" testNumber="5"/>
+            <description>Maximum capacity of an array (in elements) is 8191</description>
+            <test>size &lt;= 8191</test>
+            <error>
+                <message>Maximum capacity of an array (8191) exceeded</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF Reference 1.4" clause="Table C.1"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

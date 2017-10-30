@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.541+03:00">
+        <name>ISO 19005-1:2005 - 6.1.12 Implementation limits - Name</name>
+        <description>Maximum length of a name (in bytes) is 127</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosName">
+            <id specification="ISO_19005_1" clause="6.1.12" testNumber="4"/>
+            <description>Maximum length of a name (in bytes) is 127</description>
+            <test>internalRepresentation.length() &lt;= 127</test>
+            <error>
+                <message>Maximum length of a Name (127) exceeded</message>
+                <arguments>
+                    <argument>internalRepresentation.length()</argument>
+                </arguments>
+            </error>
+            <references>
+                <reference specification="PDF Reference 1.4" clause="Table C.1"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.428+03:00">
+        <name>ISO 19005-1:2005 - 6.1.11 Embedded files - EmbeddedFiles tree</name>
+        <description>A file's name dictionary, as defined in PDF Reference 3.6.3, shall not contain the EmbeddedFiles key</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosDocument">
+            <id specification="ISO_19005_1" clause="6.1.11" testNumber="2"/>
+            <description>A file's name dictionary, as defined in PDF Reference 3.6.3, shall not contain the EmbeddedFiles key</description>
+            <test>containsEmbeddedFiles == false</test>
+            <error>
+                <message>The document contains embedded files (EmbeddedFiles key is present in the file's name dictionary)</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="3.6.3"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

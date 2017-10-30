@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-27T13:05:32.541+03:00">
+        <name>ISO 19005-2:2011 - 6.11 Document requirements</name>
+        <description>The document catalog shall not contain the Requirements key</description>
+    </details>
+    <hash></hash>
+    <rules>
+		<rule object="CosDocument">
+            <id specification="ISO_19005_2" clause="6.11" testNumber="1"/>
+            <description>The document catalog shall not contain the Requirements key</description>
+            <test>Requirements == null</test>
+            <error>
+                <message>The document catalog contains the Requirements key</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

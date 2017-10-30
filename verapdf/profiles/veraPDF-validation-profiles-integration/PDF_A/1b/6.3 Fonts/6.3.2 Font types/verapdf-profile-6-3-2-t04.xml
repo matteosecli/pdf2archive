@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:05.753+03:00">
+        <name>ISO 19005-1:2005 - 6.3.2 Font types - FirstChar entry</name>
+        <description>All fonts used in a conforming file shall conform to the font specifications defined in PDF Reference 5.5. 
+	FirstChar - integer - (Required except for the standard 14 fonts) The first character code defined in the font's Widths array</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDSimpleFont">
+            <id specification="ISO_19005_1" clause="6.3.2" testNumber="4"/>
+            <description>All fonts used in a conforming file shall conform to the font specifications defined in PDF Reference 5.5. 
+			FirstChar - integer - (Required except for the standard 14 fonts) The first character code defined in the font's Widths array</description>
+            <test>isStandard == true || FirstChar != null</test>
+            <error>
+                <message>A non-standard simple font dictionary has missing or invalid FirstChar entry</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="5.5.1 - Table 5.8"/>
+                <reference specification="PDF 1.4 Reference" clause="5.5.4 - Table 5.9"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

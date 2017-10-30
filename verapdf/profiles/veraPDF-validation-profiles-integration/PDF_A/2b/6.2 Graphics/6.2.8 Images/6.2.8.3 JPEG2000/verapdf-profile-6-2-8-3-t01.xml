@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-03-18T15:30:18.451+03:00">
+        <name>ISO 19005-2:2011 - 6.2.8.3 JPEG2000 - Number of channels</name>
+        <description>The number of colour channels in the JPEG2000 data shall be 1, 3 or 4.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="JPEG2000">
+            <id specification="ISO_19005_2" clause="6.2.8.3" testNumber="1"/>
+            <description>The number of colour channels in the JPEG2000 data shall be 1, 3 or 4.</description>
+            <test>nrColorChannels == 1 || nrColorChannels == 3 || nrColorChannels == 4</test>
+            <error>
+                <message>JPEG2000 image has number of colour channels different from 1, 3 or 4.</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

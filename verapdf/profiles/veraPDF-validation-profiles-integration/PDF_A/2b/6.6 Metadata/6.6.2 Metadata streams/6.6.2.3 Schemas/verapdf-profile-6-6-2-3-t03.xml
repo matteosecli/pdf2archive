@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.442+03:00">
+        <name>ISO 19005-2:2011 - 6.7.8 Extension schemas - Extension schema definition</name>
+        <description>The Schema type is an XMP structure containing the definition of an extension schema. The field namespace URI is &quot;http://www.aiim.org/pdfa/ns/schema#&quot;.
+	The required field namespace prefix is pdfaSchema. The Schema type includes the following fields: pdfaSchema:schema (Text), pdfaSchema:namespaceURI (URI), pdfaSchema:prefix (Text),
+	pdfaSchema:property (Seq Property), pdfaSchema:valueType (Seq ValueType).</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="ExtensionSchemaDefinition">
+            <id specification="ISO_19005_2" clause="6.6.2.3" testNumber="3"/>
+            <description>The Schema type is an XMP structure containing the definition of an extension schema. The field namespace URI is &quot;http://www.aiim.org/pdfa/ns/schema#&quot;.
+			The required field namespace prefix is pdfaSchema. The Schema type includes the following fields: pdfaSchema:schema (Text), pdfaSchema:namespaceURI (URI), pdfaSchema:prefix (Text),
+			pdfaSchema:property (Seq Property), pdfaSchema:valueType (Seq ValueType).</description>
+            <test>(isSchemaValidText == true &amp;&amp; schemaPrefix == &quot;pdfaSchema&quot;) &amp;&amp;
+			(isNamespaceURIValidURI == true &amp;&amp; namespaceURIPrefix == &quot;pdfaSchema&quot;) &amp;&amp;
+			(isPrefixValidText == true &amp;&amp; prefixPrefix == &quot;pdfaSchema&quot;) &amp;&amp;
+			(isPropertyValidSeq == true &amp;&amp; propertyPrefix == &quot;pdfaSchema&quot;) &amp;&amp;
+			(isValueTypeValidSeq == true &amp;&amp; (valueTypePrefix == null || valueTypePrefix == &quot;pdfaSchema&quot;) )</test>
+            <error>
+                <message>Invalid Extension Schema definition</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

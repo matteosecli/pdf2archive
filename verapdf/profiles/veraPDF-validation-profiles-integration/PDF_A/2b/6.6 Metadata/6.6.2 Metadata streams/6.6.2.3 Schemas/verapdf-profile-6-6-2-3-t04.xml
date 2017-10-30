@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.496+03:00">
+        <name>ISO 19005-2:2011 - 6.6.2.3 Extension schemas - Extension schema property</name>
+        <description>The Property type is an XMP structure containing the definition of a schema property. The
+	field namespace URI is &quot;http://www.aiim.org/pdfa/ns/property#&quot;. The required field namespace prefix is
+	pdfaProperty. The Property type includes the following fields: pdfaProperty:name (Text), pdfaProperty:valueType (Open Choice of Text), 
+	pdfaProperty:category (Closed Choice of Text: internal or external), pdfaProperty:description (Text).</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="ExtensionSchemaProperty">
+            <id specification="ISO_19005_2" clause="6.6.2.3" testNumber="4"/>
+            <description>The Property type defined is an XMP structure containing the definition of a schema property. The
+		field namespace URI is &quot;http://www.aiim.org/pdfa/ns/property#&quot;. The required field namespace prefix is
+		pdfaProperty. The Property type includes the following fields: pdfaProperty:name (Text), pdfaProperty:valueType (Open Choice of Text), 
+		pdfaProperty:category (Closed Choice of Text), pdfaProperty:description (Text).</description>
+            <test>(isNameValidText == true &amp;&amp; namePrefix == &quot;pdfaProperty&quot; ) &amp;&amp; 
+			(isValueTypeValidText == true &amp;&amp; isValueTypeDefined == true &amp;&amp; valueTypePrefix == &quot;pdfaProperty&quot; ) &amp;&amp;
+			(isCategoryValidText == true &amp;&amp; (category == &quot;external&quot; || category == &quot;internal&quot;) &amp;&amp; categoryPrefix == &quot;pdfaProperty&quot;) &amp;&amp;
+			(isDescriptionValidText == true &amp;&amp; descriptionPrefix == &quot;pdfaProperty&quot; )</test>
+            <error>
+                <message>Invalid extension schema Property type definition</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

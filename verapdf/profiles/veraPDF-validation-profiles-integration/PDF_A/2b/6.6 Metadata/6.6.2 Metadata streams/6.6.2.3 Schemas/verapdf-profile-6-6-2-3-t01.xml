@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.362+03:00">
+        <name>ISO 19005-2:2011 - 6.6.2.3 Schemas - Container schema</name>
+        <description>Extension schemas shall be specified using the PDF/A extension schema container schema defined in 6.6.2.3.3. All fields described in each 
+		of the tables in 6.6.2.3.3 shall be present in any extension schema container schema.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="ExtensionSchemaObject">
+            <id specification="ISO_19005_2" clause="6.6.2.3" testNumber="1"/>
+            <description>Extension schemas shall be specified using the PDF/A extension schema container schema defined in 6.6.2.3.3. All fields described in each 
+			of the tables in 6.6.2.3.3 shall be present in any extension schema container schema.</description>
+            <test>containsUndefinedFields == false</test>
+            <error>
+                <message>An extension schema object contains fields not defined by the specification</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

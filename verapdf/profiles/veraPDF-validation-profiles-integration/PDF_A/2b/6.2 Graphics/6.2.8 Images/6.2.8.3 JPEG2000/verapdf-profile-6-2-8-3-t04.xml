@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-03-18T15:51:27.079+03:00">
+        <name>ISO 19005-2:2011 - 6.2.8.3 JPEG2000 - Enumerated colour space</name>
+        <description>JPEG2000 enumerated colour space 19 (CIEJab) shall not be used.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="JPEG2000">
+            <id specification="ISO_19005_2" clause="6.2.8.3" testNumber="4"/>
+            <description>JPEG2000 enumerated colour space 19 (CIEJab) shall not be used.</description>
+            <test>colrEnumCS == null || colrEnumCS != 19</test>
+            <error>
+                <message>JPEG2000 image uses enumerated colour space 19 (CIEJab), which is not allowed in PDF/A</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

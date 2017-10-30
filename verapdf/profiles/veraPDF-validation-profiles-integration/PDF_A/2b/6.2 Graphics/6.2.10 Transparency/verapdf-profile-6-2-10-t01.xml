@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.862+03:00">
+        <name>ISO 19005-2:2011 - 6.2.10 Transparency - Blend modes</name>
+        <description>Only blend modes that are specified in ISO 32000-1:2008 shall be used for the value of the BM key in an extended graphic state dictionary.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDExtGState">
+            <id specification="ISO_19005_1" clause="6.2.10" testNumber="1"/>
+            <description>Only blend modes that are specified in ISO 32000-1:2008 shall be used for the value of the BM key in an extended graphic state dictionary.</description>
+            <test>BM == null || BM == &quot;Normal&quot; || BM == &quot;Compatible&quot; || BM == &quot;Multiply&quot; || BM == &quot;Screen&quot; || BM == &quot;Overlay&quot; || BM == &quot;Darken&quot; ||
+			BM == &quot;Lighten&quot; || BM == &quot;ColorDodge&quot; || BM == &quot;ColorBurn&quot; || BM == &quot;HardLight&quot; || BM == &quot;SoftLight&quot; || BM == &quot;Difference&quot; || BM == &quot;Exclusion&quot; ||
+			BM == &quot;Hue&quot; || BM == &quot;Saturation&quot; || BM == &quot;Color&quot; || BM == &quot;Luminosity&quot;</test>
+            <error>
+                <message>The document uses the blend mode not defined in ISO 32000-1:2008</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO32000-1:2008" clause="11.3.5, Tables 136-137"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.177+03:00">
+        <name>ISO 19005-2:2011 - 6.1.10 Inline image dictionaries</name>
+        <description>The value of the F key in the Inline Image dictionary shall not be LZW, LZWDecode, Crypt, a value not listed in ISO 32000-1:2008, Table 6, 
+	or an array containing any such value.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosIIFilter">
+            <id specification="ISO_19005_1" clause="6.1.10" testNumber="1"/>
+            <description>The value of the F key in the Inline Image dictionary shall not be LZW, LZWDecode, Crypt, a value not listed in ISO 32000-1:2008, Table 6, 
+			or an array containing any such value.</description>
+            <test>
+                internalRepresentation == &quot;ASCIIHexDecode&quot; ||  internalRepresentation == &quot;ASCII85Decode&quot; ||
+                internalRepresentation == &quot;FlateDecode&quot; ||  internalRepresentation == &quot;RunLengthDecode&quot; ||
+                internalRepresentation == &quot;CCITTFaxDecode&quot; || internalRepresentation == &quot;DCTDecode&quot; ||
+                internalRepresentation == &quot;AHx&quot; || internalRepresentation == &quot;A85&quot; ||
+                internalRepresentation == &quot;Fl&quot; || internalRepresentation == &quot;RL&quot; ||
+                internalRepresentation == &quot;CCF&quot; || internalRepresentation == &quot;DCT&quot;
+            </test>
+            <error>
+                <message>Inline image uses LZW, Crypt or one of the unknown filters</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

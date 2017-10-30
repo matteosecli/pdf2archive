@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.068+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.3 Composite fonts - CMaps</name>
+        <description>All CMaps used within a PDF/A-2 file, except those listed in ISO 32000-1:2008, 9.7.5.2, Table 118, shall be embedded in that file as described 
+	in ISO 32000-1:2008, 9.7.5.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDCMap">
+            <id specification="ISO_19005_1" clause="6.2.11.3" testNumber="3"/>
+            <description>All CMaps used within a PDF/A-2 file, except those listed in ISO 32000-1:2008, 9.7.5.2, Table 118, shall be embedded in that file as described 
+			in ISO 32000-1:2008, 9.7.5.</description>
+            <test>CMapName == &quot;Identity-H&quot; || CMapName == &quot;Identity-V&quot; || CMapName == &quot;GB-EUC-H&quot; || CMapName == &quot;GB-EUC-V&quot; ||
+			CMapName == &quot;GBpc-EUC-H&quot; || CMapName == &quot;GBpc-EUC-V&quot; || CMapName == &quot;GBK-EUC-H&quot; || CMapName == &quot;GBK-EUC-V&quot; ||
+			CMapName == &quot;GBKp-EUC-H&quot; || CMapName == &quot;GBKp-EUC-V&quot; || CMapName == &quot;GBK2K-H&quot; || CMapName == &quot;GBK2K-V&quot; ||
+			CMapName == &quot;UniGB-UCS2-H&quot; || CMapName == &quot;UniGB-UCS2-V&quot; || CMapName == &quot;UniGB-UFT16-H&quot; || CMapName == &quot;UniGB-UFT16-V&quot; ||
+			CMapName == &quot;B5pc-H&quot; || CMapName == &quot;B5pc-V&quot; || CMapName == &quot;HKscs-B5-H&quot; || CMapName == &quot;HKscs-B5-V&quot; ||
+			CMapName == &quot;ETen-B5-H&quot; || CMapName == &quot;ETen-B5-V&quot; || CMapName == &quot;ETenms-B5-H&quot; || CMapName == &quot;ETenms-B5-V&quot; ||
+			CMapName == &quot;CNS-EUC-H&quot; || CMapName == &quot;CNS-EUC-V&quot; || CMapName == &quot;UniCNS-UCS2-H&quot; || CMapName == &quot;UniCNS-UCS2-V&quot; ||
+			CMapName == &quot;UniCNS-UFT16-H&quot; || CMapName == &quot;UniCNS-UTF16-V&quot; || CMapName == &quot;83pv-RKSJ-H&quot; || CMapName == &quot;90ms-RKSJ-H&quot; ||
+			CMapName == &quot;90ms-RKSJ-V&quot; || CMapName == &quot;90msp-RKSJ-H&quot; || CMapName == &quot;90msp-RKSJ-V&quot; || CMapName == &quot;90pv-RKSJ-H&quot; ||
+			CMapName == &quot;Add-RKSJ-H&quot; || CMapName == &quot;Add-RKSJ-V&quot; || CMapName == &quot;EUC-H&quot; || CMapName == &quot;EUC-V&quot; ||
+			CMapName == &quot;Ext-RKSJ-H&quot; || CMapName == &quot;Ext-RKSJ-V&quot; || CMapName == &quot;H&quot; || CMapName == &quot;V&quot; ||
+			CMapName == &quot;UniJIS-UCS2-H&quot; || CMapName == &quot;UniJIS-UCS2-V&quot; || CMapName == &quot;UniJIS-UCS2-HW-H&quot; || CMapName == &quot;UniJIS-UCS2-HW-V&quot; ||
+			CMapName == &quot;UniJIS-UTF16-H&quot; || CMapName == &quot;UniJIS-UTF16-V&quot; || CMapName == &quot;KSC-EUC-H&quot; || CMapName == &quot;KSC-EUC-V&quot; ||
+			CMapName == &quot;KSCms-UHC-H&quot; || CMapName == &quot;KSCms-UHC-V&quot; || CMapName == &quot;KSCms-UHC-HW-H&quot; || CMapName == &quot;KSCms-UHC-HW-V&quot; ||
+			CMapName == &quot;KSCpc-EUC-H&quot; || CMapName == &quot;UniKS-UCS2-H&quot; || CMapName == &quot;UniKS-UCS2-V&quot; || CMapName == &quot;UniKS-UTF16-H&quot; || CMapName == &quot;UniKS-UTF16-V&quot; ||
+			embeddedFile_size == 1</test>
+            <error>
+                <message>A non-standard CMap is not embedded</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO32000-1:2008" clause="9.7.5.2, Table 118"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

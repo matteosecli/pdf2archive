@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.803+03:00">
+        <name>ISO 19005-2:2011 - 6.1.7 Stream objects - 6.1.7.2 Filters</name>
+        <description>All standard stream filters listed in ISO 32000-1:2008, 7.4, Table 6 may be used, with the exception of
+            LZWDecode. In addition, the Crypt filter shall not be used unless the value of the Name key in the decode
+            parameters dictionary is Identity. Filters that are not listed in ISO 32000-1:2008, 7.4, Table 6 shall not be
+            used.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosFilter">
+            <id specification="ISO_19005_2" clause="6.1.7" testNumber="4"/>
+            <description>All standard stream filters listed in ISO 32000-1:2008, 7.4, Table 6 may be used, with the exception of
+                LZWDecode. In addition, the Crypt filter shall not be used unless the value of the Name key in the decode
+                parameters dictionary is Identity. Filters that are not listed in ISO 32000-1:2008, 7.4, Table 6 shall not be
+                used.</description>
+            <test>
+                internalRepresentation == &quot;ASCIIHexDecode&quot; ||  internalRepresentation == &quot;ASCII85Decode&quot; ||
+                internalRepresentation == &quot;FlateDecode&quot; ||  internalRepresentation == &quot;RunLengthDecode&quot; ||
+                internalRepresentation == &quot;CCITTFaxDecode&quot; ||  internalRepresentation == &quot;JBIG2Decode&quot; ||
+                internalRepresentation == &quot;DCTDecode&quot; ||  internalRepresentation == &quot;JPXDecode&quot; ||
+                (internalRepresentation == &quot;Crypt&quot; &amp;&amp; decodeParms == &quot;Identity&quot;)
+            </test>
+            <error>
+                <message>LZW compression is used</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

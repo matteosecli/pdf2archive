@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.583+03:00">
+        <name>ISO 19005-2:2011 - 6.6.2.3 Extension schemas - Extension schema Field type</name>
+        <description>The Field type defined in Table 6 is an XMP structure containing the definition of a property value type field. The field 
+	namespace URI is &quot;http://www.aiim.org/pdfa/ns/field#&quot;. The required field namespace prefix is pdfaField. The Field type contains the following fields:
+	pdfaField:name (Text), pdfaField:valueType (Open Choice of Text), pdfaField:description (Text).</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="ExtensionSchemaField">
+            <id specification="ISO_19005_2" clause="6.6.2.3" testNumber="6"/>
+            <description>The Field type defined in Table 6 is an XMP structure containing the definition of a property value type field. The field 
+		namespace URI is &quot;http://www.aiim.org/pdfa/ns/field#&quot;. The required field namespace prefix is pdfaField. The Field type contains the following fields:
+		pdfaField:name (Text), pdfaField:valueType (Open Choice of Text), pdfaField:description (Text).</description>
+            <test>(isNameValidText == true &amp;&amp; namePrefix == &quot;pdfaField&quot; ) &amp;&amp; 
+			(isValueTypeValidText == true &amp;&amp; isValueTypeDefined == true &amp;&amp; valueTypePrefix == &quot;pdfaField&quot; ) &amp;&amp;
+			(isDescriptionValidText == true &amp;&amp; descriptionPrefix == &quot;pdfaField&quot; )</test>
+            <error>
+                <message>Invalid extension schema Field type definition</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

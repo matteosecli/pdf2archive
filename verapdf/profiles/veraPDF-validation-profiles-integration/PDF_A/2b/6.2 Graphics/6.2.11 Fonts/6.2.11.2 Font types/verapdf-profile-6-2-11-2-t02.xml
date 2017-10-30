@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.927+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.2 Font types - Subtype entry</name>
+        <description>All fonts and font programs used in a conforming file, regardless of rendering mode usage, shall conform to the provisions
+	in ISO 32000-1:2008, 9.6 and 9.7, as well as to the font specifications referenced by these provisions.
+	Subtype - name - (Required) The type of font; must be &quot;Type1&quot; for Type 1 fonts, &quot;MMType1&quot; for multiple master fonts, &quot;TrueType&quot; for TrueType fonts
+	&quot;Type3&quot; for Type 3 fonts, &quot;Type0&quot; for Type 0 fonts and &quot;CIDFontType0&quot; or &quot;CIDFontType2&quot; for CID fonts</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDFont">
+            <id specification="ISO_19005_1" clause="6.2.11.2" testNumber="2"/>
+            <description>All fonts and font programs used in a conforming file, regardless of rendering mode usage, shall conform to the provisions
+			in ISO 32000-1:2008, 9.6 and 9.7, as well as to the font specifications referenced by these provisions.
+			Subtype - name - (Required) The type of font; must be &quot;Type1&quot; for Type 1 fonts, &quot;MMType1&quot; for multiple master fonts, &quot;TrueType&quot; for TrueType fonts
+			&quot;Type3&quot; for Type 3 fonts, &quot;Type0&quot; for Type 0 fonts and &quot;CIDFontType0&quot; or &quot;CIDFontType2&quot; for CID fonts</description>
+            <test>Subtype == &quot;Type1&quot; || Subtype == &quot;MMType1&quot; || Subtype == &quot;TrueType&quot; || Subtype == &quot;Type3&quot; || Subtype == &quot;Type0&quot; 
+			|| Subtype == &quot;CIDFontType0&quot; || Subtype == &quot;CIDFontType2&quot;</test>
+            <error>
+                <message>A Font dictionary has missing or invalid Subtype entry</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO32000-1:2008" clause="9.6.2.1, Table 111"/>
+                <reference specification="ISO32000-1:2008" clause="9.6.2.3"/>
+                <reference specification="ISO32000-1:2008" clause="9.6.3"/>
+                <reference specification="ISO32000-1:2008" clause="9.6.5, Table 112"/>
+                <reference specification="ISO32000-1:2008" clause="9.7.4.1, Table 117"/>
+                <reference specification="ISO32000-1:2008" clause="9.7.6.1, Table 121"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

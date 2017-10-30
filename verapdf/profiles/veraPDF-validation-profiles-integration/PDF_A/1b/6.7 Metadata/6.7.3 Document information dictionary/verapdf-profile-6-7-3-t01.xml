@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.269+03:00">
+        <name>ISO 19005-1:2005 - 6.7.3 Document Information Dictionary - Document Information Dictionary entries embedded in XMP.</name>
+        <description>If a document information dictionary does appear at a document, then all of its entries that have analogous properties in predefined XMP schemas, shall also be embedded in the file in XMP form with equivalent values.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosDocument">
+            <id specification="ISO_19005_1" clause="6.7.3" testNumber="1"/>
+            <description>If a document information dictionary does appear at a document, then all of its entries that have analogous properties in predefined XMP schemas, shall also be embedded in the file in XMP form with equivalent values.</description>
+            <test>doesInfoMatchXMP</test>
+            <error>
+                <message>Some of document information dictionary entries' that have analogous properties in predefined XMP schemas do not embedded or have not equivalent values in the file in XMP form.</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO 19005-1:2005/Cor.1:2007/Cor.2:2011" clause="6.7.3"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

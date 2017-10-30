@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_U">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.188+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.7 Unicode character maps - Valid Unicode values</name>
+        <description>The Unicode values specified in the ToUnicode CMap shall all be greater than zero (0), but not equal to either U+FEFF or U+FFFE.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="Glyph">
+            <id specification="ISO_19005_2" clause="6.2.11.7" testNumber="2"/>
+            <description>The Unicode values specified in the ToUnicode CMap shall all be greater than zero (0), but not equal to either U+FEFF or U+FFFE.</description>
+            <test>toUnicode == null || (toUnicode.indexOf("\u0000") == -1 &amp;&amp; toUnicode.indexOf("\uFFFE") == -1 &amp;&amp; toUnicode.indexOf("\uFEFF")  == -1)</test>
+            <error>
+                <message>The glyph has an invalid Unicode value</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

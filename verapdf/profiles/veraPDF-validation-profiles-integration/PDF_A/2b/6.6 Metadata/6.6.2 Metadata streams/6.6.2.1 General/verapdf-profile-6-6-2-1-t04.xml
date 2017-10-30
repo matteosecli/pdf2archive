@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.614+03:00">
+        <name>ISO 19005-2:2011 - 6.6.2.1 General - Conforms to XMP Specification.</name>
+        <description>All metadata streams present in the PDF shall conform to the XMP Specification. All content of all XMP packets shall be well-formed, 
+		as defined by Extensible Markup Language (XML) 1.0 (Third Edition), 2.1, and the RDF/XML Syntax Specification (Revised).</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="XMPPackage">
+            <id specification="ISO_19005_2" clause="6.6.2.1" testNumber="4"/>
+            <description>All metadata streams present in the PDF shall conform to the XMP Specification. All content of all XMP packets shall be well-formed, 
+			as defined by Extensible Markup Language (XML) 1.0 (Third Edition), 2.1, and the RDF/XML Syntax Specification (Revised).</description>
+            <test>isSerializationValid</test>
+            <error>
+                <message>%1</message>
+                <arguments>
+                    <argument>errorMessage</argument>
+                </arguments>
+            </error>
+            <references>
+                <reference specification="XMP Specification September 2005" clause=""/>
+                <reference specification="Extensible Markup Language (XML) 1.0 (Third Edition), 04 February 2004" clause="2.1"/>				
+                <reference specification="RDF/XML Syntax Specification (Revised), 10 February 2004" clause=""/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

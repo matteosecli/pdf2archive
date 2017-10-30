@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:05.006+03:00">
+        <name>ISO 19005-1:2005 - 6.1.2 String objects - Characters range</name>
+        <description>All non-white-space characters in hexadecimal strings shall be in the range 0 to 9, A to F or a to f</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosString">
+            <id specification="ISO_19005_1" clause="6.1.6" testNumber="2"/>
+            <description>All non-white-space characters in hexadecimal strings shall be in the range 0 to 9, A to F or a to f</description>
+            <test>(isHex != true) || containsOnlyHex</test>
+            <error>
+                <message>Hexadecimal string contains non-white-space characters outside the range 0 to 9, A to F or a to f</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.180+03:00">
+        <name>ISO 19005-2:2011 - 6.6.4 Version and conformance level identification - PDF/A Identification Schema properties.</name>
+        <description>The PDF/A Identification schema defined in Table 8 uses the namespace URI &quot;http://www.aiim.org/pdfa/ns/id/&quot;. The required schema namespace prefix is pdfaid.
+	It contains the following properties: pdfaid:part (Open Choice of Integer), pdfaid:amd (Open Choice of Text), pdfaid:corr (Open Choice of Text), 
+	pdfaid:conformance (Open Choice of Text).</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDFAIdentification">
+            <id specification="ISO_19005_2" clause="6.6.4" testNumber="4"/>
+            <description>The PDF/A Identification schema defined in Table 8 uses the namespace URI &quot;http://www.aiim.org/pdfa/ns/id/&quot;. 
+			The required schema namespace prefix is pdfaid. It contains the following fields: pdfaid:part (Open Choice of Integer), 
+			pdfaid:amd (Open Choice of Text), pdfaid:corr (Open Choice of Text), pdfaid:conformance (Open Choice of Text)</description>
+            <test>partPrefix == &quot;pdfaid&quot; &amp;&amp; conformancePrefix == &quot;pdfaid&quot; &amp;&amp;
+			(amdPrefix == null || amdPrefix == &quot;pdfaid&quot;) &amp;&amp;
+			(corrPrefix == null || corrPrefix == &quot;pdfaid&quot;)</test>
+            <error>
+                <message>A property of the PDF/A Identification Schema has an invalid namespace prefix</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

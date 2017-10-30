@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.660+03:00">
+        <name>ISO 19005-1:2005 - 6.1.12 Implementation limits - Graphics state nesting</name>
+        <description>Maximum depth of graphics state nesting by q and Q operators is 28</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="Op_q_gsave">
+            <id specification="ISO_19005_1" clause="6.1.12" testNumber="8"/>
+            <description>Maximum depth of graphics state nesting by q and Q operators is 28</description>
+            <test>nestingLevel &lt;= 28</test>
+            <error>
+                <message>Maximum depth of graphics state nesting (q and Q operators) is exceeded</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF Reference 1.4" clause="Table C.1"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

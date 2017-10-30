@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.137+03:00">
+        <name>ISO 19005-2:2011 - 6.7.3 Artefacts - StructTreeRoot</name>
+        <description>The logical structure of the conforming file shall be described by a structure hierarchy rooted in the StructTreeRoot entry 
+		of the document's Catalog dictionary, as described in ISO 32000-1:2008, 14.7.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDDocument">
+            <id specification="ISO_19005_2" clause="6.7.3" testNumber="1"/>
+            <description>The logical structure of the conforming file shall be described by a structure hierarchy rooted in the StructTreeRoot entry 
+			of the document's Catalog dictionary, as described in ISO 32000-1:2008, 14.7.</description>
+            <test>StructTreeRoot_size == 1</test>
+            <error>
+                <message>StructTreeRoot entry is not present in the document catalog</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO 32000-1:2008" clause="14.7"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.094+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.3 Composite fonts - WMode</name>
+        <description>For those CMaps that are embedded, the integer value of the WMode entry in the CMap dictionary shall be identical to the WMode 
+	value in the embedded CMap stream.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CMapFile">
+            <id specification="ISO_19005_1" clause="6.2.11.3" testNumber="4"/>
+            <description>For those CMaps that are embedded, the integer value of the WMode entry in the CMap dictionary shall be identical to the WMode value
+			in the embedded CMap stream.</description>
+            <test>WMode == dictWMode</test>
+            <error>
+                <message>WMode entry in the embedded CMap and in the CMap dictionary are not identical</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

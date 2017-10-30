@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.432+03:00">
+        <name>ISO 19005-2:2011 - 6.4.3 Digital signatures - ByteRange</name>
+        <description>When computing the digest for the file, it shall be computed over the entire file, including the signature
+		dictionary but excluding the PDF Signature itself.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDSignature">
+            <id specification="ISO_19005_2" clause="6.4.3" testNumber="1"/>
+            <description>When computing the digest for the file, it shall be computed over the entire file, including the signature
+			dictionary but excluding the PDF Signature itself.</description>
+            <test>doesByteRangeCoverEntireDocument == true</test>
+            <error>
+                <message>ByteRanbe array of the digital signature does not cover the entire file (excluding the PDF Signature itself)</message>
+                <arguments/>
+            </error>
+            <references>
+				<reference specification="ISO 19005-2:2011" clause="Annex B"/>
+				<reference specification="ISO 32000-1:2008" clause="12.8.1"/>
+			</references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

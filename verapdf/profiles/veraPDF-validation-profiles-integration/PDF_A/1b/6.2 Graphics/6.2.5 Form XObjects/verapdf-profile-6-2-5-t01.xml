@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:05.453+03:00">
+        <name>ISO 19005-1:2005 - 6.2.5 Form XObjects - PS</name>
+        <description>A form XObject dictionary shall not contain the Subtype2 key with a value of PS or the PS key</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDXForm">
+            <id specification="ISO_19005_1" clause="6.2.5" testNumber="1"/>
+            <description>A form XObject dictionary shall not contain the Subtype2 key with a value of PS or the PS key</description>
+            <test>(Subtype2 == null || Subtype2 != &quot;PS&quot;) &amp;&amp; containsPS == false</test>
+            <error>
+                <message>The form XObject dictionary contains a PS key or Subtype2 key with value PS</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

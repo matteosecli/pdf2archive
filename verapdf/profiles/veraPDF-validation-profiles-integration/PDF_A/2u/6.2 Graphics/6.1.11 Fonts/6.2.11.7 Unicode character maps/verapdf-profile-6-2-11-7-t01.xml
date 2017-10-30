@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_U">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.188+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.7 Unicode character maps - Unicode mapping</name>
+        <description>The Font dictionary of all fonts shall define the map of all used character codes to Unicode values, either via a ToUnicode entry,
+		or other mechanisms as defined in ISO 19005-2:2011, 6.2.11.7.2.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="Glyph">
+            <id specification="ISO_19005_2" clause="6.2.11.7" testNumber="1"/>
+            <description>The Font dictionary of all fonts shall define the map of all used character codes to Unicode values, either via a ToUnicode entry,
+			or other mechanisms as defined in ISO 19005-2, 6.2.11.7.2.</description>
+            <test>toUnicode != null</test>
+            <error>
+                <message>The glyph can not be mapped to Unicode</message>
+                <arguments/>
+            </error>
+            <references>
+				<reference specification="ISO 19005-2:2011" clause="6.2.11.7.2"/>
+			</references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

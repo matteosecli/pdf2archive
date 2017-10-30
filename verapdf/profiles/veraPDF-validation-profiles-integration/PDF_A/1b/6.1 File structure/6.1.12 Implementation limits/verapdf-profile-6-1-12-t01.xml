@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.455+03:00">
+        <name>ISO 19005-1:2005 - 6.1.12 Implementation limits - Integer</name>
+        <description>Largest Integer value is 2,147,483,647. Smallest integer value is -2,147,483,648</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosInteger">
+            <id specification="ISO_19005_1" clause="6.1.12" testNumber="1"/>
+            <description>Largest Integer value is 2,147,483,647. Smallest integer value is -2,147,483,648</description>
+            <test>(intValue &lt;= 2147483647) &amp;&amp; (intValue &gt;= -2147483648)</test>
+            <error>
+                <message>Integer value out of range</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF Reference 1.4" clause="Table C.1"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

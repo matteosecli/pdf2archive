@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.435+03:00">
+        <name>ISO 19005-2:2011 - 6.2.5 Extended graphics state - HTP key</name>
+        <description>An ExtGState dictionary shall not contain the HTP key</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDExtGState">
+            <id specification="ISO_19005_2" clause="6.2.5" testNumber="3"/>
+            <description>An ExtGState dictionary shall not contain the HTP key</description>
+            <test>containsHTP == false</test>
+            <error>
+                <message>An ExtGState dictionary contains the HTP key</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

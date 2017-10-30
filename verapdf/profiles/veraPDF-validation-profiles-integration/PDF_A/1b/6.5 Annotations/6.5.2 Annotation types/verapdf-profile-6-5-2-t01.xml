@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:06.487+03:00">
+        <name>ISO 19005-1:2005 - 6.5.2 Annotation types</name>
+        <description>Annotation types not defined in PDF Reference shall not be permitted. Additionally, the FileAttachment,
+	Sound and Movie types shall not be permitted</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDAnnot">
+            <id specification="ISO_19005_1" clause="6.5.2" testNumber="1"/>
+            <description>Annotation types not defined in PDF Reference shall not be permitted. Additionally, the FileAttachment, 
+			Sound and Movie types shall not be permitted</description>
+            <test>Subtype == &quot;Text&quot; || Subtype == &quot;Link&quot; || Subtype == &quot;FreeText&quot; || Subtype == &quot;Line&quot; || 
+			Subtype == &quot;Square&quot; || Subtype == &quot;Circle&quot; || Subtype == &quot;Highlight&quot; || Subtype == &quot;Underline&quot; ||
+			Subtype == &quot;Squiggly&quot; || Subtype == &quot;StrikeOut&quot; || Subtype == &quot;Stamp&quot; || Subtype == &quot;Ink&quot; ||
+			Subtype == &quot;Popup&quot; || Subtype == &quot;Widget&quot; || Subtype == &quot;PrinterMark&quot; || Subtype == &quot;TrapNet&quot;</test>
+            <error>
+                <message>Unknown or not permitted annotation type</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="8.4.5"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

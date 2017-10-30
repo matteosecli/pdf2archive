@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.333+03:00">
+        <name>ISO 19005-2:2011 - 6.6.2.1 General - encoding attribute</name>
+        <description>The encoding attribute shall not be used in the header of an XMP packet.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="XMPPackage">
+            <id specification="ISO_19005_2" clause="6.6.2.1" testNumber="3"/>
+            <description>The encoding attribute shall not be used in the header of an XMP packet.</description>
+            <test>encoding == null</test>
+            <error>
+                <message>The XMP Package contains encoding attribute.</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

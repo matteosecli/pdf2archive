@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_3_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.114+03:00">
+        <name>ISO 19005-2:2011 - 6.6.4 Version and conformance level identification - Part number.</name>
+        <description>The value of pdfaid:part shall be the part number of ISO 19005 to which the file conforms.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDFAIdentification">
+            <id specification="ISO_19005_3" clause="6.6.4" testNumber="2"/>
+            <description>The value of pdfaid:part shall be the part number of ISO 19005 to which the file conforms.</description>
+            <test>part == 3</test>
+            <error>
+                <message>The &quot;part&quot; property of the PDF/A Identification Schema is %1 instead of 3 for PDF/A-3 conforming file.</message>
+                <arguments>
+                    <argument>part</argument>
+                </arguments>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

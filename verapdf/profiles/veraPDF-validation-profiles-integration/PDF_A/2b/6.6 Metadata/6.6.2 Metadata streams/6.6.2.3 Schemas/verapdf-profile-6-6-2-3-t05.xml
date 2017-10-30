@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.555+03:00">
+        <name>ISO 19005-2:2011 - 6.6.2.3 Extension schemas - Extension schema ValueType type</name>
+        <description>The ValueType type is an XMP structure containing the definition of all property value
+	types used by embedded extension schemas that are not defined in the XMP Specification. The field namespace URI is &quot;http://www.aiim.org/pdfa/ns/type#&quot;.
+	The required field namespace prefix is pdfaType. The ValueType type includes the following fields: pdfaType:type (Text), pdfaType:namespaceURI (URI),
+	pdfaType:prefix (Text), pdfaType:description (Text), pdfaType:field (Seq Field).</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="ExtensionSchemaValueType">
+            <id specification="ISO_19005_2" clause="6.6.2.3" testNumber="5"/>
+            <description>The ValueType type is an XMP structure containing the definition of all property value
+		types used by embedded extension schemas that are not defined in the XMP Specification. The field namespace URI is &quot;http://www.aiim.org/pdfa/ns/type#&quot;.
+		The required field namespace prefix is pdfaType. The ValueType type includes the following fields: pdfaType:type (Text), pdfaType:namespaceURI (URI),
+		pdfaType:prefix (Text), pdfaType:description (Text), pdfaType:field (Seq Field).</description>
+            <test>(isTypeValidText == true &amp;&amp; typePrefix == &quot;pdfaType&quot;) &amp;&amp;
+			(isNamespaceURIValidURI == true &amp;&amp; namespaceURIPrefix == &quot;pdfaType&quot;) &amp;&amp;
+			(isPrefixValidText == true &amp;&amp; prefixPrefix == &quot;pdfaType&quot;) &amp;&amp;
+			(isDescriptionValidText == true &amp;&amp; descriptionPrefix == &quot;pdfaType&quot;) &amp;&amp;
+			(isFieldValidSeq == true &amp;&amp; (fieldPrefix == null || fieldPrefix == &quot;pdfaType&quot;) )</test>
+            <error>
+                <message>Invalid extension schema ValueType type definition</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:05.160+03:00">
+        <name>ISO 19005-1:2005 - 6.2.2 Output intent - Valid ICC output profile</name>
+        <description>A PDF/A-1 OutputIntent is an OutputIntent dictionary, as defined by PDF Reference 9.10.4, that is included in the file's OutputIntents 
+	array and has GTS_PDFA1 as the value of its S key and a valid ICC profile stream as the value its DestOutputProfile key</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="ICCOutputProfile">
+            <id specification="ISO_19005_1" clause="6.2.2" testNumber="1"/>
+            <description>A PDF/A-1 OutputIntent is an OutputIntent dictionary, as defined by PDF Reference 9.10.4, that is included in the file's OutputIntents 
+	array and has GTS_PDFA1 as the value of its S key and a valid ICC profile stream as the value its DestOutputProfile key</description>
+            <test>(deviceClass == &quot;prtr&quot; || deviceClass == &quot;mntr&quot;) &amp;&amp; (colorSpace == &quot;RGB &quot; || colorSpace == &quot;CMYK&quot; || colorSpace == &quot;GRAY&quot;) &amp;&amp; version &lt; 3.0</test>
+            <error>
+                <message>The embedded PDF/A Output Intent colour profile is either invalid or does not provide BToA information</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="9.4.10"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

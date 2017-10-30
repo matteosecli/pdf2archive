@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-05-31T18:54:03.668+03:00">
+        <name>ISO 19005-1:2005 - 6.3.2 Font types - embedded fond Subtype</name>
+        <description>All fonts used in a conforming file shall conform to the font specifications defined in PDF Reference 5.5. 
+			The subtype is the value of the Subtype key, if present, in the font file stream dictionary. The only valid values of this key in PDF 1.4 are
+			Type1C - Type 1–equivalent font program represented in the Compact Font Format (CFF) and CIDFontType0C - Type 0 CIDFont program represented 
+			in the Compact Font Format (CFF).</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDFont">
+            <id specification="ISO_19005_1" clause="6.3.2" testNumber="7"/>
+            <description>All fonts used in a conforming file shall conform to the font specifications defined in PDF Reference 5.5. 
+			The subtype is the value of the Subtype key, if present, in the font file stream dictionary. The only valid values of this key in PDF 1.4 are
+			Type1C - Type 1–equivalent font program represented in the Compact Font Format (CFF) and CIDFontType0C - Type 0 CIDFont program represented 
+			in the Compact Font Format (CFF).</description>
+            <test>fontFileSubtype == null || fontFileSubtype == "Type1C" || fontFileSubtype == "CIDFontType0C"</test>
+            <error>
+                <message>Unsupported font file format of the embedded font</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="5.8 - Table 5.22"/>
+                <reference specification="Adobe Technical Note #5176, The Compact Font Format Specification" clause=""/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

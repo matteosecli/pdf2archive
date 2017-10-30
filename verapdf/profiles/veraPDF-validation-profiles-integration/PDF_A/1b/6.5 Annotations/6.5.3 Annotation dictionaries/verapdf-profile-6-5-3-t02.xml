@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:06.541+03:00">
+        <name>ISO 19005-1:2005 - 6.5.3 Annotation dictionaries - Flags</name>
+        <description>An annotation dictionary shall contain the F key. The F key’s Print flag bit shall be set to 1 and its Hidden,
+	Invisible and NoView flag bits shall be set to 0</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDAnnot">
+            <id specification="ISO_19005_1" clause="6.5.3" testNumber="2"/>
+            <description>An annotation dictionary shall contain the F key. The F key’s Print flag bit shall be set to 1 and its Hidden,
+			Invisible and NoView flag bits shall be set to 0</description>
+            <test>F != null &amp;&amp; (F &amp; 4) == 4 &amp;&amp; (F &amp; 1) == 0 &amp;&amp; (F &amp; 2) == 0 &amp;&amp; (F &amp; 32) == 0</test>
+            <error>
+                <message>Annotation flags are either missing or have forbidden values</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

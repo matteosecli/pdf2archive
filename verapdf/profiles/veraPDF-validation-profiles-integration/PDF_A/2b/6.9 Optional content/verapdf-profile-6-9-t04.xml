@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-03-11T11:53:56.571+03:00">
+        <name>ISO 19005-2:2011 - 6.9 Optional content - Order key</name>
+        <description>The AS key shall not appear in any optional content configuration dictionary.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDOCConfig">
+            <id specification="ISO_19005_2" clause="6.9" testNumber="4"/>
+            <description>The AS key shall not appear in any optional content configuration dictionary.</description>
+            <test>AS == null</test>
+            <error>
+                <message>AS key is present in the optional content configuration dictionary</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

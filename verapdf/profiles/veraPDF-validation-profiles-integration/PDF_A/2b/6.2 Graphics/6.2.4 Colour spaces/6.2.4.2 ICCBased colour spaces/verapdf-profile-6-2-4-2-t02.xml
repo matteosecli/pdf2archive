@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-05-02T12:29:08.314+03:00">
+        <name>ISO 19005-2:2011 - 6.2.4 Colour Spaces - 6.2.4.2 ICCBased CMYK and OPM</name>
+        <description>Overprint mode (as set by the OPM value in an ExtGState dictionary) shall not be one (1) when an ICCBased CMYK colour space is 
+		used for stroke and overprinting for stroke is set to true, or when ICCBased CMYK colour space is used for fill and overprinting for 
+		fill is set to true, or both.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDICCBasedCMYK">
+            <id specification="ISO_19005_2" clause="6.2.4.2" testNumber="2"/>
+            <description>OOverprint mode (as set by the OPM value in an ExtGState dictionary) shall not be one (1) when an ICCBased CMYK colour space is 
+			used for stroke and overprinting for stroke is set to true, or when ICCBased CMYK colour space is used for fill and overprinting for 
+			fill is set to true, or both.</description>
+            <test>overprintFlag == false || OPM == 0</test>
+            <error>
+                <message>Overprint mode (OPM) is set to 1 when an ICCBased CMYK colour space is used with enabled overprinting</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO 32000-1:2008" clause="8.6.7"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2017-05-31T18:55:05.668+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.2 Font types - embedded fond Subtype</name>
+        <description>All fonts used in a conforming file shall conform to the font specifications defined in PDF Reference 5.5. 
+			The subtype is the value of the Subtype key, if present, in the font file stream dictionary. The only valid values of this key in PDF 1.7 are
+			Type1C - Type 1–equivalent font program represented in the Compact Font Format (CFF), CIDFontType0C - Type 0 CIDFont program represented
+			in the Compact Font Format (CFF) and OpenType - OpenType® font program, as described in the OpenType Specification v.1.4.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDFont">
+            <id specification="ISO_19005_2" clause="6.2.11.2" testNumber="7"/>
+            <description>All fonts used in a conforming file shall conform to the font specifications defined in PDF Reference 5.5. 
+			The subtype is the value of the Subtype key, if present, in the font file stream dictionary. The only valid values of this key in PDF 1.4 are
+			Type1C - Type 1–equivalent font program represented in the Compact Font Format (CFF), CIDFontType0C - Type 0 CIDFont program represented
+			in the Compact Font Format (CFF) and OpenType - OpenType® font program, as described in the OpenType Specification v.1.4.</description>
+            <test>fontFileSubtype == null || fontFileSubtype == "Type1C" || fontFileSubtype == "CIDFontType0C" || fontFileSubtype == "OpenType"</test>
+            <error>
+                <message>Unsupported font file format of the embedded font</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO32000-1:2008" clause="9.9, Table 126"/>
+                <reference specification="Adobe Technical Note #5176, The Compact Font Format Specification" clause=""/>
+				<reference specification="OpenType Font Specification 1.4, December 2004, Microsoft" clause=""/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

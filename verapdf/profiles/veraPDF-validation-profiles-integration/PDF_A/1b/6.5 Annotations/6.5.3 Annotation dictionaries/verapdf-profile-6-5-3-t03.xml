@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:06.566+03:00">
+        <name>ISO 19005-1:2005 - 6.5.3 Annotation dictionaries - RGB color</name>
+        <description>An annotation dictionary shall not contain the C array or the IC array unless the colour space of the
+	DestOutputProfile in the PDF/A-1 OutputIntent dictionary, defined in 6.2.2, is RGB</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDAnnot">
+            <id specification="ISO_19005_1" clause="6.5.3" testNumber="3"/>
+            <description>An annotation dictionary shall not contain the C array or the IC array unless the colour space of the
+			DestOutputProfile in the PDF/A-1 OutputIntent dictionary, defined in 6.2.2, is RGB</description>
+            <test>(C_size == 0 &amp;&amp; IC_size == 0) || gOutputCS == &quot;RGB &quot;</test>
+            <error>
+                <message>Annotation's color or interior color is used without specifying RGB-based destination output profile</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables>
+        <variable name="gOutputCS" object="ICCOutputProfile">
+            <defaultValue>null</defaultValue>
+            <value>S == &quot;GTS_PDFA1&quot; ? colorSpace : gOutputCS</value>
+        </variable>
+    </variables>
+</profile>

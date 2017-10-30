@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.707+03:00">
+        <name>ISO 19005-1:2005 - 6.1.12 Implementation limits - CID</name>
+        <description>Maximum value of a CID (character identifier) is 65,535</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CIDGlyph">
+            <id specification="ISO_19005_1" clause="6.1.12" testNumber="10"/>
+            <description>Maximum value of a CID (character identifier) is 65,535</description>
+            <test>CID &lt;= 65535</test>
+            <error>
+                <message>Maximum value of a CID (65,535) is exceeded</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF Reference 1.4" clause="Table C.1"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

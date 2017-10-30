@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.137+03:00">
+        <name>ISO 19005-2:2011 - 6.7.4 Natural language specification</name>
+        <description>If the Lang entry is present in the document’s Catalog dictionary or in a structure element dictionary or
+		property list, its value shall be a language identifier as described in ISO 32000-1:2008, 14.9.2.
+		A language identifier shall either be the empty text string, to indicate that the language is unknown, or a Language-Tag 
+		as defined in RFC 3066, Tags for the Identification of Languages.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosLang">
+            <id specification="ISO_19005_2" clause="6.7.4" testNumber="1"/>
+            <description>If the Lang entry is present in the document’s Catalog dictionary or in a structure element dictionary or
+			property list, its value shall be a language identifier as described in ISO 32000-1:2008, 14.9.2.
+			A language identifier shall either be the empty text string, to indicate that the language is unknown, or a Language-Tag 
+			as defined in RFC 3066, Tags for the Identification of Languages.</description>
+            <test>value == '' || /^[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*$/.test(value)</test>
+            <error>
+                <message>Non-standard structure type is not mapped to a standard type</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO 32000-1:2008" clause="14.9.2"/>
+                <reference specification="RFC 3066" clause="2.1"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:05.668+03:00">
+        <name>ISO 19005-1:2005 - 6.3.2 Font types - Subtype entry</name>
+        <description>All fonts used in a conforming file shall conform to the font specifications defined in PDF Reference 5.5. 
+	Subtype - name - (Required) The type of font; must be &quot;Type1&quot; for Type 1 fonts, &quot;MMType1&quot; for multiple master fonts, &quot;TrueType&quot; for TrueType fonts
+	&quot;Type3&quot; for Type 3 fonts, &quot;Type0&quot; for Type 0 fonts and &quot;CIDFontType0&quot; or &quot;CIDFontType2&quot; for CID fonts</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDFont">
+            <id specification="ISO_19005_1" clause="6.3.2" testNumber="2"/>
+            <description>All fonts used in a conforming file shall conform to the font specifications defined in PDF Reference 5.5. 
+			Subtype - name - (Required) The type of font; must be &quot;Type1&quot; for Type 1 fonts, &quot;MMType1&quot; for multiple master fonts, &quot;TrueType&quot; for TrueType fonts
+			&quot;Type3&quot; for Type 3 fonts, &quot;Type0&quot; for Type 0 fonts and &quot;CIDFontType0&quot; or &quot;CIDFontType2&quot; for CID fonts</description>
+            <test>Subtype == &quot;Type1&quot; || Subtype == &quot;MMType1&quot; || Subtype == &quot;TrueType&quot; || Subtype == &quot;Type3&quot; || Subtype == &quot;Type0&quot; 
+			|| Subtype == &quot;CIDFontType0&quot; || Subtype == &quot;CIDFontType2&quot;</test>
+            <error>
+                <message>A Font dictionary has missing or invalid Subtype entry</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="5.5.1 - Table 5.8"/>
+                <reference specification="PDF 1.4 Reference" clause="5.5.4 - Table 5.9"/>
+                <reference specification="PDF 1.4 Reference" clause="5.6.3 - Table 5.13"/>
+                <reference specification="PDF 1.4 Reference" clause="5.6.5 - Table 5.17"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

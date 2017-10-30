@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<featuresConfig>
+    <enabledFeatures>
+        <feature>ANNOTATION</feature>
+        <feature>COLORSPACE</feature>
+        <feature>FONT</feature>
+        <feature>ICCPROFILE</feature>
+        <feature>IMAGE_XOBJECT</feature>
+        <feature>INFORMATION_DICTIONARY</feature>
+        <feature>METADATA</feature>
+        <feature>OUTPUTINTENT</feature>
+        <feature>PAGE</feature>
+        <feature>POSTSCRIPT_XOBJECT</feature>
+        <feature>PROPERTIES</feature>
+    </enabledFeatures>
+</featuresConfig>

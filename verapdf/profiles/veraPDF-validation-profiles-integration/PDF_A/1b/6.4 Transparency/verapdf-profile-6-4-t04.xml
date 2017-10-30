@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:06.408+03:00">
+        <name>ISO 19005-1:2005 - 6.4 Transparency - Blend mode</name>
+        <description>The following keys, if present in an ExtGState object, shall have the values shown: BM - Normal or Compatible</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDExtGState">
+            <id specification="ISO_19005_1" clause="6.4" testNumber="4"/>
+            <description>The following keys, if present in an ExtGState object, shall have the values shown: BM - Normal or Compatible</description>
+            <test>BM == null || BM == &quot;Normal&quot; || BM == &quot;Compatible&quot;</test>
+            <error>
+                <message>An ExtGState dictionary contains the BM key (blend mode) with a value other than Normal or Compatible</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

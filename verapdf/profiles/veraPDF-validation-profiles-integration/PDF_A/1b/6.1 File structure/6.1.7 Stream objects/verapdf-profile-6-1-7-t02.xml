@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:05.066+03:00">
+        <name>ISO 19005-1:2005 - 6.1.7 Stream objects - Keywords spacing</name>
+        <description>The stream keyword shall be followed either by a CARRIAGE RETURN (0Dh) and LINE FEED (0Ah) character sequence
+	or by a single LINE FEED character. The endstream keyword shall be preceded by an EOL marker</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosStream">
+            <id specification="ISO_19005_1" clause="6.1.7" testNumber="2"/>
+            <description>The stream keyword shall be followed either by a CARRIAGE RETURN (0Dh) and LINE FEED (0Ah) character sequence
+			or by a single LINE FEED character. The endstream keyword shall be preceded by an EOL marker</description>
+            <test>streamKeywordCRLFCompliant == true &amp;&amp; endstreamKeywordEOLCompliant == true</test>
+            <error>
+                <message>Spacings of keywords 'stream' and 'endstream' do not comply PDF/A specification</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:05.307+03:00">
+        <name>ISO 19005-1:2005 - 6.2.3 Colour Spaces - 6.2.3.2 ICCBased colour spaces - N key</name>
+        <description>All ICCBased colour spaces shall be embedded as ICC profile streams as described in PDF Reference 4.5.
+	The number of color components in the color space described by the ICC profile data must match the number of components actually in the ICC profile. 
+	As of PDF 1.4, N must be 1, 3, or 4</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="ICCProfile">
+            <id specification="ISO_19005_1" clause="6.2.3" testNumber="5"/>
+            <description>All ICCBased colour spaces shall be embedded as ICC profile streams as described in PDF Reference 4.5.
+			The number of color components in the color space described by the ICC profile data must match the number of components actually in the ICC profile. 
+			As of PDF 1.4, N must be 1, 3, or 4</description>
+            <test>N != null &amp;&amp; ((N == 1 &amp;&amp; colorSpace == &quot;GRAY&quot;) || (N == 3 &amp;&amp; (colorSpace == &quot;RGB &quot; || colorSpace == &quot;LAB &quot;)) || (N == 4 &amp;&amp; colorSpace == &quot;CMYK&quot;))</test>
+            <error>
+                <message>The N entry in the ICC profile dictionary is missing or does not match the number of components in the embedded ICC profile</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="4.5.4, Table 4.16"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

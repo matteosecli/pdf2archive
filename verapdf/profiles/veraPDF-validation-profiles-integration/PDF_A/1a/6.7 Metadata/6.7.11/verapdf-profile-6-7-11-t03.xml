@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.146+03:00">
+        <name>ISO 19005-1:2005 - 6.7.11 XMP Package - PDF/A Identification Schema.</name>
+        <description>A Level A conforming file shall specify the value of pdfaid:conformance as A.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDFAIdentification">
+            <id specification="ISO_19005_1" clause="6.7.11" testNumber="3"/>
+            <description>A Level A conforming file shall specify the value of pdfaid:conformance as A.</description>
+            <test>conformance == &quot;A&quot;</test>
+            <error>
+                <message>The &quot;conformance&quot; property of the PDF/A Identification Schema is %1 instead of &quot;A&quot; for PDF/A-1a conforming file.</message>
+                <arguments>
+                    <argument>conformance</argument>
+                </arguments>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

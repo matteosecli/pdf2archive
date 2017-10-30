@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.598+03:00">
+        <name>ISO 19005-2:2011 - 6.3.2 Annotation dictionaries - Flags of Text annotations</name>
+        <description>Text annotations should set the NoZoom and NoRotate flag bits of the F key to 1.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDAnnot">
+            <id specification="ISO_19005_1" clause="6.3.2" testNumber="3"/>
+            <description>Text annotations should set the NoZoom and NoRotate flag bits of the F key to 1.</description>
+            <test>Subtype != &quot;Text&quot; || (F != null &amp;&amp; (F &amp; 8) == 8 &amp;&amp; (F &amp; 16) == 16)</test>
+            <error>
+                <message>Text annotation has one of the flags NoZoom or NoRotate set to 0</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

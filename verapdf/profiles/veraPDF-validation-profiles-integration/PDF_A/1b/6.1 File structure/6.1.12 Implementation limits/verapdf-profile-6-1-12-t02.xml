@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.480+03:00">
+        <name>ISO 19005-1:2005 - 6.1.12 Implementation limits - Real</name>
+        <description>Largest and smallest real values are +/-32767.0</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosReal">
+            <id specification="ISO_19005_1" clause="6.1.12" testNumber="2"/>
+            <description>Absolute real value must be less than or equal to 32767.0</description>
+            <test>(realValue &gt;= -32767.0) &amp;&amp; (realValue &lt;= 32767.0)</test>
+            <error>
+                <message>Real value out of range</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF Reference 1.4" clause="Table C.1"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-03-11T11:48:05.681+03:00">
+        <name>ISO 19005-2:2011 - 6.9 Optional content - Order key</name>
+        <description>If an optional content configuration dictionary contains the Order key, the array which is the value of this Order key shall contain references 
+		to all OCGs in the conforming file.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDOCConfig">
+            <id specification="ISO_19005_2" clause="6.9" testNumber="3"/>
+            <description>If an optional content configuration dictionary contains the Order key, the array which is the value of this Order key shall contain references 
+			to all OCGs in the conforming file.</description>
+            <test>doesOrderContainAllOCGs == true</test>
+            <error>
+                <message>Not all optional content groups are present in the Order entry of the optional content configuration dictionary</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

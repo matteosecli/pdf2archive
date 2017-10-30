@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:53:07.400+03:00">
+        <name>ISO 19005-2:2011 - 6.6.2.3 Schemas - Container schema</name>
+        <description>The extension schema container schema uses the namespace URI &quot;http://www.aiim.org/pdfa/ns/extension/&quot;. 
+		The required schema namespace prefix is pdfaExtension. pdfaExtension:schemas - Bag Schema - Description of extension schemas</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="ExtensionSchemasContainer">
+            <id specification="ISO_19005_2" clause="6.6.2.3" testNumber="2"/>
+            <description>The extension schema container schema uses the namespace URI &quot;http://www.aiim.org/pdfa/ns/extension/&quot;. 
+			The required schema namespace prefix is pdfaExtension. pdfaExtension:schemas - Bag Schema - Description of extension schemas</description>
+            <test>isValidBag == true &amp;&amp; prefix == &quot;pdfaExtension&quot;</test>
+            <error>
+                <message>Invalid syntax of the extension schema container</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

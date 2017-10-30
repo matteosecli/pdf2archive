@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.911+03:00">
+        <name>ISO 19005-1:2005 - 6.1.4 Cross reference table - Spacings of subsection headers</name>
+        <description>In a cross reference subsection header the starting object number and the range shall be separated by a single SPACE character (20h)</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosXRef">
+            <id specification="ISO_19005_1" clause="6.1.4" testNumber="1"/>
+            <description>In a cross reference subsection header the starting object number and the range shall be separated by a single SPACE character (20h)</description>
+            <test>subsectionHeaderSpaceSeparated == true</test>
+            <error>
+                <message>Spacings of subsection headers in the cross reference table do not comply PDF/A specification</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

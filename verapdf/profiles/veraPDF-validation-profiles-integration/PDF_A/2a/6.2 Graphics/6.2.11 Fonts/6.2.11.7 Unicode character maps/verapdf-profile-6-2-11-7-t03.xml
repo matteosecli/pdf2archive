@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2017-06-27T18:21:03.188+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.7 Unicode character maps - Unicode PUA</name>
+        <description>For any character, regardless of its rendering mode, that is mapped to a code
+		or codes in the Unicode Private Use Area (PUA), an ActualText entry as described in
+		ISO 32000-1:2008, 14.9.4 shall be present for this character or a sequence of characters of which such a
+		character is a part.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="Glyph">
+            <id specification="ISO_19005_2" clause="6.2.11.7" testNumber="3"/>
+            <description>For any character, regardless of its rendering mode, that is mapped to a code
+			or codes in the Unicode Private Use Area (PUA), an ActualText entry as described in
+			ISO 32000-1:2008, 14.9.4 shall be present for this character or a sequence of characters of which such a
+			character is a part.</description>
+            <test>unicodePUA == false || actualTextPresent == true</test>
+            <error>
+                <message>The character has Unicode value from Private Use Area, and no replacement text present</message>
+                <arguments/>
+            </error>
+            <references>
+				<reference specification="ISO 32000-1:2008" clause="14.9.4"/>
+			</references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

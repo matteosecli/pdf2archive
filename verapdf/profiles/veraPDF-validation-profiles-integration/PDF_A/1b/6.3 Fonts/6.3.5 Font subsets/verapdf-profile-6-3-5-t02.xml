@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:06.093+03:00">
+        <name>ISO 19005-1:2005 - 6.3.5 Font subsets - CharSet entry in Type1 subsets</name>
+        <description>For all Type 1 font subsets referenced within a conforming file, the font descriptor dictionary shall include a CharSet string
+	listing the character names defined in the font subset, as described in PDF Reference Table 5.18</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDType1Font">
+            <id specification="ISO_19005_1" clause="6.3.5" testNumber="2"/>
+            <description>For all Type 1 font subsets referenced within a conforming file, the font descriptor dictionary shall include a CharSet string
+			listing the character names defined in the font subset, as described in PDF Reference Table 5.18</description>
+            <test>fontName.search(/[A-Z]{6}\+/) != 0 || CharSet != null</test>
+            <error>
+                <message>A Type1 font subset does not define CharSet entry in its Descriptor dictionary</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="5.5.3"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

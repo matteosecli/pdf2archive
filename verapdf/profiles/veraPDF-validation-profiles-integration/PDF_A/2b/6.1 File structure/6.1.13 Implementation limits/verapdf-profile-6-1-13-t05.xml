@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.300+03:00">
+        <name>ISO 19005-2:2011 - 6.1.12 Implementation limits - Real (min)</name>
+        <description>A conforming file shall not contain any real number closer to zero than +/-1.175 x 10^(-38).</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosReal">
+            <id specification="ISO_19005_1" clause="6.1.13" testNumber="5"/>
+            <description>A conforming file shall not contain any real number closer to zero than +/-1.175 x 10^(-38).</description>
+            <test>realValue == 0.0 || (realValue &lt;= -1.175e-38) || (realValue &gt;= 1.175e-38)</test>
+            <error>
+                <message>Non-zero real value is too close to 0.0</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:04.383+03:00">
+        <name>ISO 19005-1:2005 - 6.1.11 Embedded files - File specification dictionary</name>
+        <description>A file specification dictionary, as defined in PDF 3.10.2, shall not contain the EF key</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="CosFileSpecification">
+            <id specification="ISO_19005_1" clause="6.1.11" testNumber="1"/>
+            <description>A file specification dictionary, as defined in PDF 3.10.2, shall not contain the EF key</description>
+            <test>containsEF == false</test>
+            <error>
+                <message>A file specification dictionary contains the EF key</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="PDF 1.4 Reference" clause="3.10.2"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

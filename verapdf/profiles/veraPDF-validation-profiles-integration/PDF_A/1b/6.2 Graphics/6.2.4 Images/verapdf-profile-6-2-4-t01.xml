@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:05.335+03:00">
+        <name>ISO 19005-1:2005 - 6.2.4 Images - Alternates</name>
+        <description></description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDXImage">
+            <id specification="ISO_19005_1" clause="6.2.4" testNumber="1"/>
+            <description>An Image dictionary shall not contain the Alternates key</description>
+            <test>containsAlternates == false</test>
+            <error>
+                <message>Alternates key is present in the Image dictionary(</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

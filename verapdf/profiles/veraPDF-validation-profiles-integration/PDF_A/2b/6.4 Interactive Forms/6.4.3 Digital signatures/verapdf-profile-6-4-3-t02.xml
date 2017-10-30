@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_B">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:07.432+03:00">
+        <name>ISO 19005-2:2011 - 6.4.3 Digital signatures - PKCS#7 object</name>
+        <description>The PDF Signature (a DER-encoded PKCS#7 binary data object) shall be placed into the Contents entry of
+		the signature dictionary. The PKCS#7 object shall conform to the PKCS#7 specification in RFC 2315. At
+		minimum, it shall include the signer's X.509 signing certificate and there shall only be a single signer (e.g.
+		a single "SignerInfo" structure) in the PDF Signature.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PKCSDataObject">
+            <id specification="ISO_19005_2" clause="6.4.3" testNumber="2"/>
+            <description>The PDF Signature (a DER-encoded PKCS#7 binary data object) shall be placed into the Contents entry of
+			the signature dictionary. The PKCS#7 object shall conform to the PKCS#7 specification in RFC 2315. At
+			minimum, it shall include the signer's X.509 signing certificate and there shall only be a single signer (e.g.
+			a single "SignerInfo" structure) in the PDF Signature.</description>
+            <test>signingCertificatePresent == true &amp;&amp; SignerInfoCount == 1</test>
+            <error>
+                <message>The DER-encoded PKCS#7 binary data object representing a PDF Signature does not conform to PDF/A-2 requirements</message>
+                <arguments/>
+            </error>
+            <references>
+				<reference specification="ISO 19005-2:2011" clause="Annex B"/>
+				<reference specification="RFC 2315" clause=""/>
+			</references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

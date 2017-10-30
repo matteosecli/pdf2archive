@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_2_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:08.172+03:00">
+        <name>ISO 19005-2:2011 - 6.2.11 Fonts - 6.2.11.4 Embedding - CIDSet entry in CID Fonts</name>
+        <description>If the FontDescriptor dictionary of an embedded CID font contains a CIDSet stream, then it shall identify all CIDs which are present in the font program,
+	regardless of whether a CID in the font is referenced or used by the PDF or not.</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDCIDFont">
+            <id specification="ISO_19005_2" clause="6.2.11.4" testNumber="4"/>
+            <description>If the FontDescriptor dictionary of an embedded CID font contains a CIDSet stream, then it shall identify all CIDs which are present in the font program,
+			regardless of whether a CID in the font is referenced or used by the PDF or not.</description>
+            <test>fontFile_size == 0 || fontName.search(/[A-Z]{6}\+/) != 0 || CIDSet_size == 0 || cidSetListsAllGlyphs == true</test>
+            <error>
+                <message>A CID Font subset does not define CIDSet entry in its Descriptor dictionary</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

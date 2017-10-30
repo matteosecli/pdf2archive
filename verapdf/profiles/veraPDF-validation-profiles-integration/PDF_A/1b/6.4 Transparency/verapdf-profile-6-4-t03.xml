@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:06.354+03:00">
+        <name>ISO 19005-1:2005 - 6.4 Transparency - Transparency group</name>
+        <description>A Group object with an S key with a value of Transparency shall not be included in a form XObject. 
+	A Group object with an S key with a value of Transparency shall not be included in a page dictionary</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDGroup">
+            <id specification="ISO_19005_1" clause="6.4" testNumber="3"/>
+            <description>A Group object with an S key with a value of Transparency shall not be included in a form XObject. 
+			A Group object with an S key with a value of Transparency shall not be included in a page dictionary</description>
+            <test>S != &quot;Transparency&quot;</test>
+            <error>
+                <message>A transparency group is present in a form XObject or page dictionary</message>
+                <arguments/>
+            </error>
+            <references>
+                <reference specification="ISO19005-1:2005/Cor.2:2011" clause="6.4"/>
+            </references>
+        </rule>
+    </rules>
+    <variables/>
+</profile>

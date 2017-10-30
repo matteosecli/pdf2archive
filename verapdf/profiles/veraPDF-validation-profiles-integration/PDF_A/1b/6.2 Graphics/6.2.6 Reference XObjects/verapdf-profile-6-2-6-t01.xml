@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profile xmlns="http://www.verapdf.org/ValidationProfile" flavour="PDFA_1_A">
+    <details creator="veraPDF Consortium" created="2016-02-15T10:58:05.485+03:00">
+        <name>ISO 19005-1:2005 - 6.2.6 Reference XObjects</name>
+        <description>A conforming file shall not contain any reference XObjects</description>
+    </details>
+    <hash></hash>
+    <rules>
+        <rule object="PDXForm">
+            <id specification="ISO_19005_1" clause="6.2.6" testNumber="1"/>
+            <description>A conforming file shall not contain any reference XObjects</description>
+            <test>containsRef == false</test>
+            <error>
+                <message>The document contains a reference XObject (Ref key in the form XObject dictionary)</message>
+                <arguments/>
+            </error>
+            <references/>
+        </rule>
+    </rules>
+    <variables/>
+</profile>
