@@ -81,8 +81,17 @@ There are still cases in which this script produces valid PDF/A-1B files which a
 So, now the question is: what is the university still waiting for?
 
 ## FAQs
++ __Why I'm not able to get a valid PDF/A-1B file?__ <br />
+The requirements needed to produce a valid PDF/A-1B file are quite complex; this script tries to do its best at converting, but the result is not guaranteed. The most common problems that prevent a successful conversion are font issues, metadata and colorspace. As for the fonts, try not to use exotic fonts and (if you are using LaTeX) not to compile with XeLaTeX; the same document compiled with LaTeX seems to convert successfully, while with XeLaTeX it doesn't. I'm still investigating, but it seems a font embedding problem. The other common problem are images; try to use simple vector images (see below) and in general images in RGB colorspace, _not_ CMYK. If your document is still not passing, try to use the GUI version of VeraPDF and read the HTML report to track down the possible issues.
++ __My document gets converted successfully, but Esse3 goes in timeout. What I'm doing wrong?__ <br />
+Probably nothing. It seems that the validator used by Esse3 gets stucked when processing large or too complex files. Try to
+    + Reduce the dimension of the PDF file. You can play around with the `--quality` option until the resulting file is roughly 1/3 of the maximum allowed size.
+    + Reduce the complexity of your vector images. Once we had a similar case: the vector images had been directly exported in PDF from Python and then included in LaTeX. The problem seems to be that these PDF vector images get too complex once converted in PDF/A-1B; the solution was to export the images in EPS and then convert them to PDF, instead of a direct PDF export.
++ __Why the colors on the converted document look odd?__ <br />
+This thing has to do with the colorspace stuff required by the PDF/A-1B. All the images get converted in sRGB (so you can notice a difference is the source files are in CMYK); additionally, opacities are _not_ supported.
+
 
 ## Licensing
 + PDF2ARCHIVE is under GPLv3+
 + The included ICC file is licensed in compliance with Adobe's license agreement: https://www.adobe.com/support/downloads/iccprofiles/icc_eula_win_dist.html
-+ VeraPDF is dual-licensed under MPLv2+ and GPLv3+: http://verapdf.org/home/#licensing
++ VeraPDF is dual-licensed under MPLv2+ and GPLv3+: http://verapdf.org/home/#licensing. The launcher scripts have been slightly modified to include a conditional command-line option that deals with the changes introduced by Java 9.
