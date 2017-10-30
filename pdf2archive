@@ -53,7 +53,7 @@ EXAMPLES:
   Convert 'input.pdf' in PDF/A-1B format and perform a high-quality compression:
       $0 --quality=high input.pdf
   Convert 'input.pdf' in PDF/A-1B format and specify the document title:
-      $0 --title="Title of your nice document" input.pdf
+      $0 --title=\"Title of your nice document\" input.pdf
   Convert 'input.pdf' in PDF/A-1B format and validate the result:
       $0 --validate input.pdf
 
@@ -98,6 +98,10 @@ fi
 
 
 #=====# INPUT PARSER #=====#
+if [ "$1" == "" ]; then
+    help
+    exit
+fi
 while [ "$1" != "" ]; do
     PARAM=`echo $1 | awk -F= '{print $1}'`
     VALUE=`echo $1 | awk -F= '{print $2}'`
