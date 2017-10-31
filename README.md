@@ -89,6 +89,10 @@ Probably nothing. It seems that the validator used by Esse3 gets stucked when pr
     + Reduce the complexity of your vector images. Once we had a similar case: the vector images had been directly exported in PDF from Python and then included in LaTeX. The problem seems to be that these PDF vector images get too complex once converted in PDF/A-1B; the solution was to export the images in EPS and then convert them to PDF, instead of a direct PDF export.
 + __Why the colors on the converted document look odd?__ <br />
 This thing has to do with the colorspace stuff required by the PDF/A-1B. All the images get converted in sRGB (so you can notice a difference is the source files are in CMYK); additionally, opacities are _not_ supported.
++ __Why I get some Java errors during the validation process?__ <br />
+The latest version of Oracle Java (9) has introduced some incompatibilities; VeraPDF doesn't work by default with Oracle Java 9, as it's using some deprecated modules. There is an easy command-line fix, which though is not compatible with the previous versions of Oracla Java and with OpenJDK. If you have problems, it could be that I'm not parsing corectly the vesion of Java (which is a mess) or that you have a particular version of Java with incompatibilities; in that case, just let me know since it's a case-by-case discussion.
++ __Why I cannot start the GUI version of VeraPDF?__ <br />
+This problem could be related to the previous question. Additionally, while the command-line version of VeraPDF seems to work both with Oracle Java and with OpenJDK, it seems that the GUI version of VeraPDF doesn't work with OpenJDK (or at least, on my computer). So, if you also want to use the GUI version of VeraPDF I suggest to install Oracle Java.
 
 
 ## Licensing
