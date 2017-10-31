@@ -121,7 +121,8 @@ fi
 # Add java.xml.bind from Java 9 onwards
 JAVA_MODS=""
 JAVA_VNUM=$(java -version 2>&1 | sed -n '{s/.* version "\([^\.-]*\)\.\{1\}\([^\.-]*\)\{0,1\}.*"/\1\2/p; s/.* version "\([^\.-]*\).*"/\10/p;}')
-if [ "$JAVA_VNUM" -ge 90 ] ; then
+JAVA_FLAVOR=$(java -version 2>&1 | sed -n "s/\(.*\) Runtime.*/\1/p")
+if [ "$JAVA_VNUM" -ge 90 ] && [ "$JAVA_FLAVOR" != "OpenJDK" ]; then
   JAVA_MODS="--add-modules java.xml.bind"
 fi
 
