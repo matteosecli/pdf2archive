@@ -7,7 +7,7 @@ A simple Ghostscript-based PDF to PDF/A-1B converter.
 + [Only if you want to validate] Java
 
 ## Installation
-Just download a zip archive of this repo and unzip somewhere. If necessary, open up a terminal in the folder that you've extracted and run a `chmod +x pdf2archive`. You're done.
+Just download the [latest release](https://github.com/matteosecli/pdf2archive/releases/latest) or a zip archive of this repo and unzip somewhere. If necessary, open up a terminal in the folder that you've extracted and run a `chmod +x pdf2archive`. You're done.
 
 ## Usage
 Take the PDF file you want to convert and put it in the folder where you've extracted the script. Open up a terminal in the same folder and run
