@@ -3,8 +3,8 @@ A simple Ghostscript-based PDF to PDF/A-1B converter.
 
 ## Requirements
 + A Bash-compatible shell
-+ A recent version of Ghostscript (I tested from 9.18 to 9.22)
-+ [Only if you want to validate] Java
++ A recent version of Ghostscript (at least 9.14, further details [here](https://github.com/matteosecli/pdf2archive/wiki/Conversion-Tests))
++ [Only if you want to validate] Java (Oracle Java instead of OpenJDK is preferred)
 
 ## Installation
 Just download the [latest release](https://github.com/matteosecli/pdf2archive/releases/latest) or a zip archive of this repo and unzip somewhere. If necessary, open up a terminal in the folder that you've extracted and run a `chmod +x pdf2archive`. You're done.
@@ -82,7 +82,7 @@ So, now the question is: what is the university still waiting for?
 
 ## FAQs
 + __Why I'm not able to get a valid PDF/A-1B file?__ <br />
-The requirements needed to produce a valid PDF/A-1B file are quite complex; this script tries to do its best at converting, but the result is not guaranteed. The most common problems that prevent a successful conversion are font issues, metadata and colorspace. As for the fonts, try not to use exotic fonts and (if you are using LaTeX) not to compile with XeLaTeX; the same document compiled with LaTeX seems to convert successfully, while with XeLaTeX it doesn't. I'm still investigating, but it seems a font embedding problem. The other common problem are images; try to use simple vector images (see below) and in general images in RGB colorspace, _not_ CMYK. If your document is still not passing, try to use the GUI version of VeraPDF and read the HTML report to track down the possible issues.
+The requirements needed to produce a valid PDF/A-1B file are quite complex; this script tries to do its best at converting, but the result is not guaranteed (see [Conversion Tests](https://github.com/matteosecli/pdf2archive/wiki/Conversion-Tests)). The most common problems that prevent a successful conversion are font issues, metadata and colorspace. As for the fonts, try not to use exotic fonts and (if you are using LaTeX) not to compile with XeLaTeX; the same document compiled with LaTeX seems to convert successfully, while with XeLaTeX it doesn't. I'm still investigating, but it seems a font embedding problem. The other common problem are images; try to use simple vector images (see below) and in general images in RGB colorspace, _not_ CMYK. If your document is still not passing, try to use the GUI version of VeraPDF and read the HTML report to track down the possible issues.
 + __My document gets converted successfully, but Esse3 goes in timeout. What I'm doing wrong?__ <br />
 Probably nothing. It seems that the validator used by Esse3 gets stucked when processing large or too complex files. Try to
     + Reduce the dimension of the PDF file. You can play around with the `--quality` option until the resulting file is roughly 1/3 of the maximum allowed size.
