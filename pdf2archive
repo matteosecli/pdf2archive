@@ -25,6 +25,7 @@ QUALITYOPTS=""
 DEBUG=false
 VALIDATE=false
 MSGOPTS="-dQUIET -sstdout=/dev/null"
+VERAMSGOPTS=""
 #ERROPTS="2>/dev/null"
 PDFTITLE=""
 PDFAUTHOR=""
@@ -117,6 +118,7 @@ while [ "$1" != "" ]; do
         --debug)
             DEBUG=true
             MSGOPTS=""
+            VERAMSGOPTS="--verbose"
             #ERROPTS=""
             ;;
         --quality)
@@ -264,7 +266,7 @@ echo "  Done, now ESSE3 is happy! ;)"
 #=====# VALIDATE THE RESULT #=====#
 if $VALIDATE; then
     echo "  Validating resulting file..."
-    echo "  $(./verapdf/verapdf --extract --flavour 1b --format text $OUTPUT)"
+    echo "  $(./verapdf/verapdf $VERAMSGOPTS --extract --flavour 1b --format text $OUTPUT)"
 else
     echo "  Suggestion: validate the resulting PDF to be sure it's PDF/A-1B compliant."
 fi
