@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# PDF2ARCHIVE 0.2
+# PDF2ARCHIVE 0.3
 # (C) 2018 Matteo Seclì <secli.matteo@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 
 #=====# INITIALIZE VARIABLES #=====#
-VERSION="0.2"
+VERSION="0.3"
 INPUT=""
 OUTPUT=""
 QUALITYOPTS=""
@@ -27,10 +27,6 @@ VALIDATE=false
 MSGOPTS="-dQUIET -sstdout=/dev/null"
 VERAMSGOPTS=""
 #ERROPTS="2>/dev/null"
-PDFTITLE=""
-PDFAUTHOR=""
-PDFSUBJECT=""
-PDFKEYS=""
 
 
 #=====# HELP FUNCTION #=====#
@@ -68,6 +64,8 @@ OPTIONS:
   --author=<value>    Author of the resulting PDF/A file
   --subject=<value>   Subject of the resulting PDF/A file
   --keywords=<value>  Comma-separated keywords of the resulting PDF/A file
+  --cleanmetadata     Clean all the standard metadata fields, except the ones specified via
+                      the command line options.
   --validate          Validate the resulting file. The validation is done with VeraPDF, you
                       need a working Java installation.
   --debug             Write additional debug information on screen
@@ -77,7 +75,7 @@ LICENSE:
   GPLv3
 
 AUTHORS:
-  (C) 2017 Matteo Seclì"
+  (C) 2017-2018 Matteo Seclì"
 }
 
 
@@ -136,6 +134,17 @@ while [ "$1" != "" ]; do
                 exit 1
             fi
             ;;
+        --cleanmetadata)
+            [[ -z ${PDFTITLE+x} ]] && PDFTITLE=""
+            [[ -z ${PDFAUTHOR+x} ]] && PDFAUTHOR=""
+            [[ -z ${PDFSUBJECT+x} ]] && PDFSUBJECT=""
+            [[ -z ${PDFKEYWORDS+x} ]] && PDFKEYWORDS=""
+            [[ -z ${PDFCREATOR+x} ]] && PDFCREATOR=""
+            [[ -z ${PDFPRODUCER+x} ]] && PDFPRODUCER=""
+            [[ -z ${PDFCREATIONDATE+x} ]] && PDFCREATIONDATE=""
+            [[ -z ${PDFMODDATE+x} ]] && PDFMODDATE=""
+            [[ -z ${PDFTRAPPED+x} ]] && PDFTRAPPED=""
+            ;;
         --title)
             PDFTITLE=$VALUE
             ;;
@@ -146,7 +155,7 @@ while [ "$1" != "" ]; do
             PDFSUBJECT=$VALUE
             ;;
         --keywords)
-            PDFKEYS=$VALUE
+            PDFKEYWORDS=$VALUE
             ;;
         --validate)
             if [ "$(which java)" == "" ]; then
@@ -185,6 +194,50 @@ TMPFILE=$(mktemp)
 TMPDIR=$(mktemp -d)
 PSTMPFILE=$TMPDIR/PDFA_def.ps
 ICCTMPFILE=$TMPDIR/AdobeRGB1998.icc
+INFOTMPFILE=$TMPDIR/pdf_minimal_info.ps
+echo \
+"%!PS
+% Extract PDF info in a minimal way.
+% Inspired by 'toolbin/pdf_info.ps'.
+
+/QUIET true def
+File dup (r) file runpdfbegin
+Trailer /Info knownoget {
+dup /Title knownoget { (__knowninfoTitle: ) print = flush } if
+dup /Author knownoget { (__knowninfoAuthor: ) print = flush } if
+dup /Subject knownoget { (__knowninfoSubject: ) print = flush } if
+dup /Keywords knownoget { (__knowninfoKeywords: ) print = flush } if
+dup /Creator knownoget { (__knowninfoCreator: ) print = flush } if
+dup /Producer knownoget { (__knowninfoProducer: ) print = flush } if
+dup /CreationDate knownoget { (__knowninfoCreationDate: ) print = flush } if
+dup /ModDate knownoget { (__knowninfoModDate: ) print = flush } if
+dup /Trapped knownoget { (__knowinfoTrapped: ) print = flush } if
+} if
+quit
+" > $INFOTMPFILE
+
+
+#=====# PRESERVE UNSPECIFIED KNOWN STANDARD METADATA #=====#
+# Notes:
+#     'iconv' is necessary to filter out all the invalid bytes.
+#     If it's not used, sed (unless it's GNU sed) will fail with
+#     'RE error: illegal byte sequence'. A solution to this is to
+#     use 'LC_CTYPE=C && LANG=C && echo "$METADUMP" ...' in the
+#     variable assignments; however, this produces bad PDF files.
+#
+METADUMP=$(gs -dNODISPLAY -q -sFile="$INPUT" $INFOTMPFILE | iconv -f utf-8 -t utf-8 -c)
+[[ -z ${PDFTITLE+x} ]] && PDFTITLE=$(echo "$METADUMP" | grep "__knowninfoTitle: " | sed "s/^__knowninfoTitle: //g")
+[[ -z ${PDFAUTHOR+x} ]] && PDFAUTHOR=$(echo "$METADUMP" | grep "__knowninfoAuthor: " | sed "s/^__knowninfoAuthor: //g")
+[[ -z ${PDFSUBJECT+x} ]] && PDFSUBJECT=$(echo "$METADUMP" | grep "__knowninfoSubject: " | sed "s/^__knowninfoSubject: //g")
+[[ -z ${PDFKEYWORDS+x} ]] && PDFKEYWORDS=$(echo "$METADUMP" | grep "__knowninfoKeywords: " | sed "s/^__knowninfoKeywords: //g")
+[[ -z ${PDFCREATOR+x} ]] && PDFCREATOR=$(echo "$METADUMP" | grep "__knowninfoCreator: " | sed "s/^__knowninfoCreator: //g")
+[[ -z ${PDFPRODUCER+x} ]] && PDFPRODUCER=$(echo "$METADUMP" | grep "__knowninfoProducer: " | sed "s/^__knowninfoProducer: //g")
+[[ -z ${PDFCREATIONDATE+x} ]] && PDFCREATIONDATE=$(echo "$METADUMP" | grep "__knowninfoCreationDate: " | sed "s/^__knowninfoCreationDate: //g")
+[[ -z ${PDFMODDATE+x} ]] && PDFMODDATE=$(echo "$METADUMP" | grep "__knowninfoModDate: " | sed "s/^__knowninfoModDate: //g")
+[[ -z ${PDFTRAPPED+x} ]] && PDFTRAPPED=$(echo "$METADUMP" | grep "__knowninfoTrapped: " | sed "s/^__knowninfoTrapped: //g")
+
+
+#=====# PRINT DEBUG INFO #=====#
 if $DEBUG; then
     echo "  DEBUG: running PDF2ARCHIVE, version $VERSION"
     echo "  DEBUG: using Ghostscript binary at $(which gs), version $(gs --version)"
@@ -196,7 +249,12 @@ if $DEBUG; then
     echo "  DEBUG: PDF title '$PDFTITLE'"
     echo "  DEBUG: PDF author '$PDFAUTHOR'"
     echo "  DEBUG: PDF subject '$PDFSUBJECT'"
-    echo "  DEBUG: PDF keywords '$PDFKEYS'"
+    echo "  DEBUG: PDF keywords '$PDFKEYWORDS'"
+    echo "  DEBUG: PDF creator '$PDFCREATOR'"
+    echo "  DEBUG: PDF producer '$PDFPRODUCER'"
+    echo "  DEBUG: PDF creation date '$PDFCREATIONDATE'"
+    echo "  DEBUG: PDF modification date '$PDFMODDATE'"
+    echo "  DEBUG: PDF trapping '$PDFTRAPPED'"
 fi
 
 
@@ -226,7 +284,12 @@ def
 [ /Title ($PDFTITLE)                  % Customize.
   /Author ($PDFAUTHOR)
   /Subject ($PDFSUBJECT)
-  /Keywords ($PDFKEYS)
+  /Keywords ($PDFKEYWORDS)
+  /Creator ($PDFCREATOR)
+%  /Producer                          % Reserved to GS
+%  /CreationDate                      % Reserved to GS
+%  /ModDate                           % Reserved to GS
+  /Trapped ($PDFTRAPPED)
   /DOCINFO pdfmark
 
 % Define an ICC profile :
