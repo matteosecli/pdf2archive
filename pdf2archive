@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# PDF2ARCHIVE 0.1
-# (C) 2017 Matteo Seclì <secli.matteo@gmail.com>
+# PDF2ARCHIVE 0.2
+# (C) 2018 Matteo Seclì <secli.matteo@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 
 #=====# INITIALIZE VARIABLES #=====#
-VERSION="0.1"
+VERSION="0.2"
 INPUT=""
 OUTPUT=""
 QUALITYOPTS=""
@@ -30,6 +30,7 @@ VERAMSGOPTS=""
 PDFTITLE=""
 PDFAUTHOR=""
 PDFSUBJECT=""
+PDFKEYS=""
 
 
 #=====# HELP FUNCTION #=====#
@@ -66,6 +67,7 @@ OPTIONS:
   --title=<value>     Title of the resulting PDF/A file
   --author=<value>    Author of the resulting PDF/A file
   --subject=<value>   Subject of the resulting PDF/A file
+  --keywords=<value>  Comma-separated keywords of the resulting PDF/A file
   --validate          Validate the resulting file. The validation is done with VeraPDF, you
                       need a working Java installation.
   --debug             Write additional debug information on screen
@@ -143,6 +145,9 @@ while [ "$1" != "" ]; do
         --subject)
             PDFSUBJECT=$VALUE
             ;;
+        --keywords)
+            PDFKEYS=$VALUE
+            ;;
         --validate)
             if [ "$(which java)" == "" ]; then
                 echo "  ERROR: Java is not installed or it's not in the path"
@@ -191,6 +196,7 @@ if $DEBUG; then
     echo "  DEBUG: PDF title '$PDFTITLE'"
     echo "  DEBUG: PDF author '$PDFAUTHOR'"
     echo "  DEBUG: PDF subject '$PDFSUBJECT'"
+    echo "  DEBUG: PDF keywords '$PDFKEYS'"
 fi
 
 
@@ -220,6 +226,7 @@ def
 [ /Title ($PDFTITLE)                  % Customize.
   /Author ($PDFAUTHOR)
   /Subject ($PDFSUBJECT)
+  /Keywords ($PDFKEYS)
   /DOCINFO pdfmark
 
 % Define an ICC profile :
@@ -265,7 +272,7 @@ run gs $MSGOPTS \
     -dUseCIEColor -sProcessColorModel=DeviceRGB -sColorConversionStrategy=RGB \
     -sOutputICCProfile=$ICCTMPFILE \
     -sDEVICE=pdfwrite \
-    -sOutputFile=$OUTPUT $PSTMPFILE $TMPFILE
+    -sOutputFile=$OUTPUT $TMPFILE $PSTMPFILE
 echo "  Removing temporary files..."
 rm $TMPFILE
 echo "  Done, now ESSE3 is happy! ;)"
