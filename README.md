@@ -47,7 +47,7 @@ Convert 'input.pdf' in PDF/A-1B format and perform a high-quality compression:
 
 Convert 'input.pdf' in PDF/A-1B format and specify the document title:
 ```
-  ./pdf2archive --title=\"Title of your nice document\" input.pdf
+  ./pdf2archive --title="Title of your nice document" input.pdf
 ```
 
 Convert 'input.pdf' in PDF/A-1B format and validate the result:
