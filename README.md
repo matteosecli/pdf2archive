@@ -23,6 +23,9 @@ where `input.pdf` is the file you want ot convert. You may or may not specify an
   --title=<value>     Title of the resulting PDF/A file
   --author=<value>    Author of the resulting PDF/A file
   --subject=<value>   Subject of the resulting PDF/A file
+  --keywords=<value>  Comma-separated keywords of the resulting PDF/A file
+  --cleanmetadata     Clean all the standard metadata fields, except the ones specified via
+                      the command line options.
   --validate          Validate the resulting file. The validation is done with VeraPDF, you
                       need a working Java installation.
   --debug             Write additional debug information on screen
