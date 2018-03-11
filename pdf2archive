@@ -137,15 +137,15 @@ while [ "$1" != "" ]; do
             fi
             ;;
         --cleanmetadata)
-            [[ -z ${PDFTITLE+x} ]] && PDFTITLE=""
-            [[ -z ${PDFAUTHOR+x} ]] && PDFAUTHOR=""
-            [[ -z ${PDFSUBJECT+x} ]] && PDFSUBJECT=""
-            [[ -z ${PDFKEYWORDS+x} ]] && PDFKEYWORDS=""
-            [[ -z ${PDFCREATOR+x} ]] && PDFCREATOR=""
-            [[ -z ${PDFPRODUCER+x} ]] && PDFPRODUCER=""
-            [[ -z ${PDFCREATIONDATE+x} ]] && PDFCREATIONDATE=""
-            [[ -z ${PDFMODDATE+x} ]] && PDFMODDATE=""
-            [[ -z ${PDFTRAPPED+x} ]] && PDFTRAPPED=""
+            [ -z ${PDFTITLE+x} ] && PDFTITLE=""
+            [ -z ${PDFAUTHOR+x} ] && PDFAUTHOR=""
+            [ -z ${PDFSUBJECT+x} ] && PDFSUBJECT=""
+            [ -z ${PDFKEYWORDS+x} ] && PDFKEYWORDS=""
+            [ -z ${PDFCREATOR+x} ] && PDFCREATOR=""
+            [ -z ${PDFPRODUCER+x} ] && PDFPRODUCER=""
+            [ -z ${PDFCREATIONDATE+x} ] && PDFCREATIONDATE=""
+            [ -z ${PDFMODDATE+x} ] && PDFMODDATE=""
+            [ -z ${PDFTRAPPED+x} ] && PDFTRAPPED=""
             ;;
         --title)
             PDFTITLE=$VALUE
@@ -228,15 +228,15 @@ quit
 #     variable assignments; however, this produces bad PDF files.
 #
 METADUMP=$(gs -dNODISPLAY -q -sFile="$INPUT" $INFOTMPFILE | iconv -f utf-8 -t utf-8 -c)
-[[ -z ${PDFTITLE+x} ]] && PDFTITLE=$(echo "$METADUMP" | grep "__knowninfoTitle: " | sed "s/^__knowninfoTitle: //g")
-[[ -z ${PDFAUTHOR+x} ]] && PDFAUTHOR=$(echo "$METADUMP" | grep "__knowninfoAuthor: " | sed "s/^__knowninfoAuthor: //g")
-[[ -z ${PDFSUBJECT+x} ]] && PDFSUBJECT=$(echo "$METADUMP" | grep "__knowninfoSubject: " | sed "s/^__knowninfoSubject: //g")
-[[ -z ${PDFKEYWORDS+x} ]] && PDFKEYWORDS=$(echo "$METADUMP" | grep "__knowninfoKeywords: " | sed "s/^__knowninfoKeywords: //g")
-[[ -z ${PDFCREATOR+x} ]] && PDFCREATOR=$(echo "$METADUMP" | grep "__knowninfoCreator: " | sed "s/^__knowninfoCreator: //g")
-[[ -z ${PDFPRODUCER+x} ]] && PDFPRODUCER=$(echo "$METADUMP" | grep "__knowninfoProducer: " | sed "s/^__knowninfoProducer: //g")
-[[ -z ${PDFCREATIONDATE+x} ]] && PDFCREATIONDATE=$(echo "$METADUMP" | grep "__knowninfoCreationDate: " | sed "s/^__knowninfoCreationDate: //g")
-[[ -z ${PDFMODDATE+x} ]] && PDFMODDATE=$(echo "$METADUMP" | grep "__knowninfoModDate: " | sed "s/^__knowninfoModDate: //g")
-[[ -z ${PDFTRAPPED+x} ]] && PDFTRAPPED=$(echo "$METADUMP" | grep "__knowninfoTrapped: " | sed "s/^__knowninfoTrapped: //g")
+[ -z ${PDFTITLE+x} ] && PDFTITLE=$(echo "$METADUMP" | grep "__knowninfoTitle: " | sed "s/^__knowninfoTitle: //g")
+[ -z ${PDFAUTHOR+x} ] && PDFAUTHOR=$(echo "$METADUMP" | grep "__knowninfoAuthor: " | sed "s/^__knowninfoAuthor: //g")
+[ -z ${PDFSUBJECT+x} ] && PDFSUBJECT=$(echo "$METADUMP" | grep "__knowninfoSubject: " | sed "s/^__knowninfoSubject: //g")
+[ -z ${PDFKEYWORDS+x} ] && PDFKEYWORDS=$(echo "$METADUMP" | grep "__knowninfoKeywords: " | sed "s/^__knowninfoKeywords: //g")
+[ -z ${PDFCREATOR+x} ] && PDFCREATOR=$(echo "$METADUMP" | grep "__knowninfoCreator: " | sed "s/^__knowninfoCreator: //g")
+[ -z ${PDFPRODUCER+x} ] && PDFPRODUCER=$(echo "$METADUMP" | grep "__knowninfoProducer: " | sed "s/^__knowninfoProducer: //g")
+[ -z ${PDFCREATIONDATE+x} ] && PDFCREATIONDATE=$(echo "$METADUMP" | grep "__knowninfoCreationDate: " | sed "s/^__knowninfoCreationDate: //g")
+[ -z ${PDFMODDATE+x} ] && PDFMODDATE=$(echo "$METADUMP" | grep "__knowninfoModDate: " | sed "s/^__knowninfoModDate: //g")
+[ -z ${PDFTRAPPED+x} ] && PDFTRAPPED=$(echo "$METADUMP" | grep "__knowninfoTrapped: " | sed "s/^__knowninfoTrapped: //g")
 
 
 #=====# PRINT DEBUG INFO #=====#
