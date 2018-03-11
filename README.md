@@ -17,17 +17,18 @@ Take the PDF file you want to convert and put it in the folder where you've extr
 where `input.pdf` is the file you want ot convert. You may or may not specify an output file name; if you don't, the output file will be automatically called `input-PDFA.pdf`. You also have a number of optional arguments:
 ```
   -h, --help          Show the help
-  --quality=<value>   Set the quality of the output when downsampling. The possible values
-                      are 'high', 'medium' and 'low', where 'high' gives the highest output
-                      quality. By specifying no option, no additional downsample is done.
+  --quality=<value>   Set  the  quality of  the  output  when  downsampling. The
+                      possible values  are  'high',  'medium'  and  'low', where
+                      'high' gives the highest output  quality. By specifying no
+                      option, no additional downsampling is done.
   --title=<value>     Title of the resulting PDF/A file
   --author=<value>    Author of the resulting PDF/A file
   --subject=<value>   Subject of the resulting PDF/A file
   --keywords=<value>  Comma-separated keywords of the resulting PDF/A file
-  --cleanmetadata     Clean all the standard metadata fields, except the ones specified via
-                      the command line options.
-  --validate          Validate the resulting file. The validation is done with VeraPDF, you
-                      need a working Java installation.
+  --cleanmetadata     Clean  all the standard  metadata  fields, except the ones
+                      specified via the command line options.
+  --validate          Validate  the resulting file. The  validation is done with
+                      VeraPDF, you need a working Java installation.
   --debug             Write additional debug information on screen
   -v, --version       Show the program version
 ```
