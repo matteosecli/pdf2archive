@@ -38,8 +38,7 @@ help()
 --------------------------------
 
 OVERVIEW:
-  Simple Ghostscript-based script to (try to) convert a PDF file into a PDF/A-1B
-  file.
+  A simple Ghostscript-based PDF to PDF/A-1B converter.
 
 USAGE:
   $0 [options] input.pdf [output.pdf]
