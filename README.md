@@ -100,6 +100,6 @@ This problem could be related to the previous question. Additionally, while the 
 
 
 ## Licensing
-+ PDF2ARCHIVE is under GPLv3+
-+ The file `AdobeRGB1998.icc` (included in binary form for portability reasons) is licensed in compliance with Adobe's license agreement: https://www.adobe.com/support/downloads/iccprofiles/icc_eula_win_dist.html
-+ VeraPDF is dual-licensed under MPLv2+ and GPLv3+: http://verapdf.org/home/#licensing. The launcher scripts have been slightly modified to include a conditional command-line option that deals with the changes introduced by Java 9.
++ __PDF2ARCHIVE__ is under GPLv3+.
++ The file __`AdobeRGB1998.icc`__ (included in binary form for portability reasons) is licensed in compliance with Adobe's license agreement: https://www.adobe.com/support/downloads/iccprofiles/icc_eula_win_dist.html.
++ __VeraPDF__ is dual-licensed under MPLv2+ and GPLv3+: http://verapdf.org/home/#licensing. The launcher scripts have been slightly modified to include a conditional command-line option that deals with the changes introduced by Java 9.
