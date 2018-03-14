@@ -236,6 +236,14 @@ METADUMP=$(gs -dNODISPLAY -q -sFile="$INPUT" $INFOTMPFILE | iconv -f utf-8 -t ut
 [ -z ${PDFCREATIONDATE+x} ] && PDFCREATIONDATE=$(echo "$METADUMP" | grep "__knowninfoCreationDate: " | sed "s/^__knowninfoCreationDate: //g")
 [ -z ${PDFMODDATE+x} ] && PDFMODDATE=$(echo "$METADUMP" | grep "__knowninfoModDate: " | sed "s/^__knowninfoModDate: //g")
 [ -z ${PDFTRAPPED+x} ] && PDFTRAPPED=$(echo "$METADUMP" | grep "__knowninfoTrapped: " | sed "s/^__knowninfoTrapped: //g")
+# Replace "Trapped" string, if not empty, with an operator. Fixes 3Heights.
+if [ "$PDFTRAPPED" != "" ]; then
+  PDFTRAPPED="/$(tr '[:lower:]' '[:upper:]' <<< ${PDFTRAPPED:0:1})$(tr '[:upper:]' '[:lower:]' <<< ${PDFTRAPPED:1})"
+fi
+# Check if the operator is allowed, otherwise empty variable.
+if [ "$PDFTRAPPED" != "/True" ] && [ "$PDFTRAPPED" != "/False" ]; then
+  PDFTRAPPED=""
+fi
 
 
 #=====# PRINT DEBUG INFO #=====#
@@ -289,9 +297,12 @@ def
   /Creator ($PDFCREATOR)
 %  /Producer                          % Reserved to GS
 %  /CreationDate                      % Reserved to GS
-%  /ModDate                           % Reserved to GS
-  /Trapped ($PDFTRAPPED)
-  /DOCINFO pdfmark
+%  /ModDate                           % Reserved to GS" > $PSTMPFILE
+if [ "$PDFTRAPPED" != "" ]; then
+  echo "  /Trapped $PDFTRAPPED" >> $PSTMPFILE
+fi
+echo \
+"  /DOCINFO pdfmark
 
 % Define an ICC profile :
 
@@ -309,7 +320,7 @@ def
   /OutputConditionIdentifier (AdobeRGB1998)      % Customize
 >> /PUT pdfmark
 [{Catalog} <</OutputIntents [ {OutputIntent_PDFA} ]>> /PUT pdfmark
-" > $PSTMPFILE
+" >> $PSTMPFILE
 
 
 #=====# CREATE THE COLOR PROFILE FILE #=====#
