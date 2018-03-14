@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# PDF2ARCHIVE 0.3
+# PDF2ARCHIVE 0.3.2
 # (C) 2018 Matteo Seclì <secli.matteo@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 
 #=====# INITIALIZE VARIABLES #=====#
-VERSION="0.3"
+VERSION="0.3.2"
 INPUT=""
 OUTPUT=""
 QUALITYOPTS=""
@@ -32,10 +32,16 @@ VERAMSGOPTS=""
 #=====# HELP FUNCTION #=====#
 help()
 {
+    TOTLEN="38"   # Adjust this
+    TITLESTRING="PDF2ARCHIVE, version $VERSION"
+    SPACEL=$(echo "($TOTLEN-${#TITLESTRING})/2 + (36-${#TITLESTRING})%2 - 1" | bc)
+    SPACER=$(echo "($TOTLEN-${#TITLESTRING})/2 - 1" | bc)
+    TITLESTRING=$(printf "|%-${SPACEL}s%s%-${SPACER}s|" "" "$TITLESTRING" "")
+    DASHSTRING=$(eval printf "%.0s-" {1..$TOTLEN})
     echo \
-"--------------------------------
-|   PDF2ARCHIVE, version $VERSION   |
---------------------------------
+"$DASHSTRING
+$TITLESTRING
+$DASHSTRING
 
 OVERVIEW:
   A simple Ghostscript-based PDF to PDF/A-1B converter.
