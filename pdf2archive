@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# PDF2ARCHIVE 0.3.2
+# PDF2ARCHIVE 0.4-alpha
 # (C) 2018 Matteo Seclì <secli.matteo@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,8 @@
 
 
 #=====# INITIALIZE VARIABLES #=====#
-VERSION="0.3.2"
+unset CDPATH
+VERSION="0.4-alpha"
 INPUT=""
 OUTPUT=""
 QUALITYOPTS=""
@@ -28,6 +29,7 @@ MSGOPTS="-dQUIET -sstdout=/dev/null"
 VERAMSGOPTS=""
 #ERROPTS="2>/dev/null"
 
+# TODO: REPLACE == WITH = FOR COMPATIBILITY?
 
 #=====# HELP FUNCTION #=====#
 help()
@@ -86,6 +88,199 @@ AUTHORS:
 }
 
 
+#=====# FIND SOURCE PATH FUNCTION #=====#
+get_source_path() {
+    # Reference: https://stackoverflow.com/a/246128
+    # See also: https://gist.github.com/tvlooy/cbfbdb111a4ebad8b93e
+    SOURCE="${BASH_SOURCE[0]}"
+    while [ -h "$SOURCE" ]; do
+        SOURCEDIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+        SOURCE="$(readlink "$SOURCE")"
+        # Here we cannot avoid [[ ]] because we need pattern matching
+        # Any POSIX-friendly idea?
+        [[ $SOURCE != /* ]] && SOURCE="$SOURCEDIR/$SOURCE"
+    done
+    SOURCEDIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+    # Escape to actually use it to call a binary
+    #SOURCEDIR=$(printf '%q' "$SOURCEDIR")
+    # Fallback to current dir if things go wrong; add "/"
+    if [ -z "$SOURCEDIR" ]; then
+        SOURCEDIR="./"
+    else
+        SOURCEDIR="$SOURCEDIR/"
+    fi
+    #eval $1=$SOURCEDIR
+}
+
+
+#=====# INSTALL FUNCTION #=====#
+install() {
+    if [ "$(which tar)" == "" ]; then
+      echo "  ERROR: tar binary not found!"
+      exit
+    fi
+    echo "=== Welcome to the installer of PDF2ARCHIVE ==="
+    INSTALLPREFIX="$1"
+    # Use default values if empty
+    if [ -z "$INSTALLPREFIX" ]; then
+        if [ -w "/usr/local/opt" ] || [ "$UID" -eq 0 ]; then
+            INSTALLPREFIX="/usr/local/opt"
+        else
+            INSTALLPREFIX="~/.local/opt"
+        fi
+        echo "  No installation prefix given, defaulting to '$INSTALLPREFIX'"
+    fi
+    # Choose where to put the symlinks
+    if [ -w "/usr/local/bin" ] || [ "$UID" -eq 0 ]; then
+        INSTALLBIN="/usr/local/bin"
+    else
+        INSTALLBIN="~/.local/bin"
+    fi
+    echo "  The binaries' symlinks will be installed in '$INSTALLBIN'"
+    # Choose where to put the manpage
+    if [ -w "/usr/local/share/man" ] || [ "$UID" -eq 0 ]; then
+        INSTALLMAN="/usr/local/share/man/man1"
+    else
+        INSTALLMAN="~/.local/share/man/man1"
+    fi
+    echo "  The manpages will be installed in '$INSTALLMAN'"
+    # Do the path expansion
+    #INSTALLPREFIX="`eval echo ${INSTALLPREFIX//>}`"
+    INSTALLPREFIX="$(cd "$INSTALLPREFIX" 2> /dev/null && pwd -P)"
+    INSTALLBIN="$(cd "$INSTALLBIN" 2> /dev/null && pwd -P)"
+    INSTALLMAN="$(cd "$INSTALLMAN" 2> /dev/null && pwd -P)"
+    [ -z "$INSTALLPREFIX" ] && { echo "  Something with the prefix path went wrong, aborting..."; exit; }
+    [ -z "$INSTALLBIN" ] && { echo "  Something with the binaries directory went wrong, aborting..."; exit; }
+    [ -z "$INSTALLMAN" ] && { echo "  Something with the manpages directory went wrong, aborting..."; exit; }
+    # Check if symlinks dir does not exist
+    if [ ! -d "$INSTALLBIN" ]; then
+        mkdir -p "$INSTALLBIN" && echo "  The binaries directory '$INSTALLBIN' did not exist, but I've created it!" || { echo "  The binaries directory '$INSTALLBIN' does not exist and I could not make it, trying with sudo..."; exec sudo "$0" "$@"; }
+    fi
+    # Check if manpages dir does not exist
+    if [ ! -d "$INSTALLMAN" ]; then
+        mkdir -p "$INSTALLMAN" && echo "  The manpages directory '$INSTALLMAN' did not exist, but I've created it!" || { echo "  The manpages directory '$INSTALLBIN' does not exist and I could not make it, trying with sudo..."; exec sudo "$0" "$@"; }
+    fi
+    # Check if prefix does not exist
+    if [ ! -d "$INSTALLPREFIX" ]; then
+        # Try to make the prefix, otherwise ask for sudo, otherwise abort
+        mkdir -p "$INSTALLPREFIX" && echo "  The prefix '$INSTALLPREFIX' did not exist, but I've created it!" || { [ "$UID" -eq 0 ] && { echo "  The prefix '$INSTALLPREFIX' does not exist and I could not make it, aborting..."; exit; } || { echo "  The prefix '$INSTALLPREFIX' does not exist and I could not make it, trying with sudo..."; exec sudo "$0" "$@"; } }
+    fi
+    # Check if prefix is writable, otherwise ask for sudo
+    if [ ! -w "$INSTALLPREFIX" ]; then
+        [ "$UID" -eq 0 ] && { echo "  The prefix '$INSTALLPREFIX' could not be accessed by the root user! Something went wrong, aborting..."; exit; }|| { echo "  You don't have the rights to write to '$INSTALLPREFIX', trying with sudo..."; exec sudo "$0" "$@"; }
+    fi
+    INSTALLDIR="$INSTALLPREFIX/pdf2archive"
+    mkdir -p "$INSTALLDIR" && echo "  Installing to '$INSTALLDIR':" || { "  Something went wrong, aborting..."; exit; }
+    #get_source_path
+    echo "    Removing the previous installation (if any)..."
+    rm -rf "$INSTALLDIR/*" && echo "    Previous installation correctly removed!" || { echo "    Something went wrong, aborting..."; exit; }
+    echo "    Copying files..."
+    { tar cf - ./pdf2archive ./verapdf ./manpages | ( cd "$INSTALLDIR" && tar xf - ) && { [ "${PIPESTATUS[0]}" == "0" ] || { echo "    Something went wrong, aborting..."; exit; } } } && echo "    Files copied!" || { echo "    Something went wrong, aborting..."; exit; }
+    echo "  Symlinking binaries in '$INSTALLBIN'..."
+    ln -fs "$INSTALLDIR/pdf2archive" "$INSTALLBIN/pdf2archive" || { echo "  Something went wrong, aborting..."; exit; }
+    echo "  Symlinking manpages in '$INSTALLMAN'..."
+    ln -fs "$INSTALLDIR/manpages/pdf2archive.1" "$INSTALLMAN/pdf2archive.1" && echo "  Installation finished!" || { echo "  Something went wrong, aborting..."; exit; }
+    echo "
+  You should now be able to run PDF2ARCHIVE just by using
+
+      pdf2archive
+
+  in your shell. If that's not the case, be sure to update your path via
+
+      echo 'export PATH=\"$INSTALLBIN:\$PATH\"' >> ~/.bash_profile
+
+  and restart your shell afterwards. The manual can be consulted via
+
+      man pdf2archive
+"
+}
+
+
+#=====# VERSION COMPARE #=====#
+# From http://lists.us.dell.com/pipermail/dkms-devel/2004-July/000142.html
+version_compare() {
+    [ "$1" == "$2" ] && return 10
+    ver1front=`echo $1 | cut -d "." -f -1`
+    ver1back=`echo $1 | cut -d "." -f 2-`
+    ver2front=`echo $2 | cut -d "." -f -1`
+    ver2back=`echo $2 | cut -d "." -f 2-`
+    if [ "$ver1front" != "$1" ] || [ "$ver2front" != "$2" ]; then
+        [ "$ver1front" -gt "$ver2front" ] && return 11
+        [ "$ver1front" -lt "$ver2front" ] && return 9
+        [ "$ver1front" == "$1" ] || [ -z "$ver1back" ] && ver1back=0
+        [ "$ver2front" == "$2" ] || [ -z "$ver2back" ] && ver2back=0
+        version_compare "$ver1back" "$ver2back"
+        return $?
+    else
+        [ "$1" -gt "$2" ] && return 11 || return 9
+    fi
+}
+
+
+#=====# DOWNLOAD LATEST VERSION FUNCTION #=====#
+download_latest() {
+    INSTALLTMPDIR="$1"
+    LATESTVERSION="$2"
+    INSTALLARCHIVE="$INSTALLTMPDIR/pdf2archive-v$LATESTVERSION.tar.gz"
+    echo "  Downloading the latest version to $INSTALLARCHIVE"
+    curl -sL "https://github.com/matteosecli/pdf2archive/archive/v$LATESTVERSION.tar.gz" > "$INSTALLARCHIVE" && echo "  Download completed." || { echo "  Something went wrong during the download process, aborting..."; exit; }
+    cd "$INSTALLTMPDIR"
+    echo "  Unzipping archive..."
+    tar -zxf "pdf2archive-v$LATESTVERSION.tar.gz" && echo "  Archive unzipped." || { echo "  Something went wrong during the extraction, aborting..."; exit; }
+}
+
+
+#=====# UPDATE FUNCTION #=====#
+update() {
+    if [ "$(which curl)" == "" ]; then
+        echo "  ERROR: curl binary not found!"
+        exit
+    fi
+    LATESTVERSION=$(curl -s "https://github.com/matteosecli/pdf2archive/releases/latest" | grep -o 'tag/[v.0-9]*' | awk -F/v '{print $2}')
+    [ -z "$LATESTVERSION" ] && { echo "  Could not determine the latest version! Check your internet connection."; exit; }
+    version_compare "$LATESTVERSION" "$VERSION"; versionExitCode=$?;
+    case $versionExitCode in
+        10)
+            echo "  Already up-to-date."
+            exit
+            ;;
+        11)
+            echo "  You are using PDF2ARCHIVE v$VERSION, but v$LATESTVERSION is available."
+            if [ "$(which pdf2archive)" == "" ] || [ "$1" == "local" ]; then
+                echo "  WARNING: Updating the current local version..."
+                INSTALLTMPDIR=$(mktemp -d)
+                get_source_path
+                download_latest "$INSTALLTMPDIR" "$LATESTVERSION"
+                echo "  Installing..."
+                cd "$INSTALLTMPDIR/pdf2archive-$LATESTVERSION"
+                { tar cf - . | ( cd "$SOURCEDIR" && tar xf - ) && { [ "${PIPESTATUS[0]}" == "0" ] || { echo "  Something went wrong, aborting..."; exit; } } } && echo "  Files copied!" || { echo "  Something went wrong, aborting..."; exit; }
+            else
+                echo "  Proceeding with the update..."
+                INSTALLTMPDIR=$(mktemp -d)
+                INSTALLPREFIX="$( get_source_path; cd "$SOURCEDIR/.." 2> /dev/null && pwd -P )"
+                download_latest "$INSTALLTMPDIR" "$LATESTVERSION"
+                echo "  Installing..."
+                cd "$INSTALLTMPDIR/pdf2archive-$LATESTVERSION"
+                chmod +x pdf2archive
+                ./pdf2archive --install="$INSTALLPREFIX"
+            fi
+            echo "  Cleaning up..."
+            rm -rf "$INSTALLTMPDIR/*" && echo "  Temporary files removed!" || { echo "  Something went wrong, aborting..."; exit; }
+            echo "  Update completed, you should now be able to run PDF2ARCHIVE v$LATESTVERSION."
+            exit
+            ;;
+        9)
+            echo "  Oh man, you're riding high! No need to downgrade."
+            exit
+            ;;
+        *)
+            echo "  Something went wrong! Aborting..."
+            exit
+            ;;
+    esac
+}
+
+
 #=====# RUN HELPER FUNCTION #=====#
 run() {
     if $DEBUG; then
@@ -121,6 +316,20 @@ while [ "$1" != "" ]; do
         -v | --version)
             echo $VERSION
             exit
+            ;;
+        --install)
+            install "$VALUE"
+            exit
+            ;;
+        --update)
+            if [ "$VALUE" == "local" ] || [ "$VALUE" == "" ] ; then
+                update "$VALUE"
+                exit
+            else
+                echo "  ERROR: unknown update option '$VALUE'"
+                help
+                exit 1
+            fi
             ;;
         --debug)
             DEBUG=true
@@ -197,6 +406,7 @@ echo "=== Welcome to PDF2ARCHIVE ==="
 if [ "$OUTPUT" == "" ]; then
     OUTPUT="${INPUT%.pdf}-PDFA.pdf"
 fi
+get_source_path
 TMPFILE=$(mktemp)
 TMPDIR=$(mktemp -d)
 PSTMPFILE=$TMPDIR/PDFA_def.ps
@@ -362,7 +572,7 @@ echo "  Done, now ESSE3 is happy! ;)"
 #=====# VALIDATE THE RESULT #=====#
 if $VALIDATE; then
     echo "  Validating resulting file..."
-    echo "  $(./verapdf/verapdf $VERAMSGOPTS --extract --flavour 1b --format text $OUTPUT)"
+    echo "  $("$SOURCEDIR"./verapdf/verapdf $VERAMSGOPTS --extract --flavour 1b --format text $OUTPUT)"
 else
     echo "  Suggestion: validate the resulting PDF to be sure it's PDF/A-1B compliant."
 fi

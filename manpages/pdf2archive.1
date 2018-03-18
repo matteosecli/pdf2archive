@@ -1,0 +1,138 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "PDF2ARCHIVE" "1" "March 2018" "" ""
+.
+.SH "NAME"
+\fBpdf2archive\fR \- a simple Ghostscript\-based PDF to PDF/A\-1B converter
+.
+.SH "SYNOPSIS"
+\fBpdf2archive\fR [\fIoptions\fR] \fIinput\.pdf\fR [\fIoutput\.pdf\fR]
+.
+.SH "DESCRIPTION"
+\fBpdf2archive\fR is a Bash program that converts a PDF to the PDF/A\-1B format\. The processing is done through Ghostscript, and the optional validation of the resulting document is carried out via VeraPDF\.
+.
+.SH "OPTIONS"
+.
+.SS "GENERAL OPTIONS"
+.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show the help\.
+.
+.TP
+\fB\-\-debug\fR
+Write additional debug information on screen\.
+.
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+Show the program version\.
+.
+.SS "CONVERSION OPTIONS"
+.
+.TP
+\fB\-\-quality\fR=\fIvalue\fR
+Set the quality of the output when downsampling\. The possible values are \fIhigh\fR, \fImedium\fR and \fIlow\fR, where \fIhigh\fR gives the highest output quality\. By specifying no option, no additional downsampling is done\.
+.
+.TP
+\fB\-\-title\fR=\fIvalue\fR
+Title of the resulting PDF/A file\.
+.
+.TP
+\fB\-\-author\fR=\fIvalue\fR
+Author of the resulting PDF/A file\.
+.
+.TP
+\fB\-\-subject\fR=\fIvalue\fR
+Subject of the resulting PDF/A file\.
+.
+.TP
+\fB\-\-keywords\fR=\fIvalue\fR
+Comma\-separated keywords of the resulting PDF/A file\.
+.
+.TP
+\fB\-\-cleanmetadata\fR
+Clean all the standard metadata fields, except the ones specified via the command line options\.
+.
+.SS "VALIDATION OPTIONS"
+.
+.TP
+\fB\-\-validate\fR
+Validate the resulting file\. The validation is done with VeraPDF, you need a working Java installation\.
+.
+.SH "EXAMPLES"
+Convert input\.pdf in PDF/A\-1B format; the output is input\-PDFA\.pdf:
+.
+.IP "" 4
+.
+.nf
+
+pdf2archive input\.pdf
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Convert input\.pdf in PDF/A\-1B format; the output is output\.pdf:
+.
+.IP "" 4
+.
+.nf
+
+pdf2archive input\.pdf output\.pdf
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Convert input\.pdf in PDF/A\-1B format and perform a high\-quality compression:
+.
+.IP "" 4
+.
+.nf
+
+pdf2archive \-\-quality=high input\.pdf
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Convert input\.pdf in PDF/A\-1B format and specify the document title:
+.
+.IP "" 4
+.
+.nf
+
+pdf2archive \-\-title="Title of your nice document" input\.pdf
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Convert input\.pdf in PDF/A\-1B format and validate the result:
+.
+.IP "" 4
+.
+.nf
+
+pdf2archive \-\-validate input\.pdf
+.
+.fi
+.
+.IP "" 0
+.
+.SH "VERSION"
+This document was last revised for \fBpdf2archive\fR version 0\.3\.2\.
+.
+.SH "SEE ALSO"
+gs(1)
+.
+.SH "AUTHORS"
+(C) 2017\-2018 Matteo Seclì
+.
+.SH "BUGS"
+Please report any issue on GitHub\'s issue tracker \fIhttps://github\.com/matteosecli/pdf2archive/issues\fR\.
