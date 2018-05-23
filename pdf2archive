@@ -26,6 +26,7 @@ DEBUG=false
 VALIDATE=false
 MSGOPTS="-dQUIET -sstdout=/dev/null"
 VERAMSGOPTS=""
+GSBIN="gs"
 #ERROPTS="2>/dev/null"
 
 
@@ -76,6 +77,7 @@ OPTIONS:
   --validate          Validate  the resulting file. The  validation is done with
                       VeraPDF, you need a working Java installation.
   --debug             Write additional debug information on screen
+  --gspath=<value>    Optional path to ghostscript binary. Example /usr/bin/gs
   -v, --version       Show the program version
 
 LICENSE:
@@ -98,11 +100,6 @@ run() {
 }
 
 
-#=====# CHECKS #=====#
-if [ "$(which gs)" == "" ]; then
-    echo "  ERROR: Ghostscript is not installed or it's not in the path"
-    exit
-fi
 
 
 #=====# INPUT PARSER #=====#
@@ -140,6 +137,9 @@ while [ "$1" != "" ]; do
                 help
                 exit 1
             fi
+            ;;
+        --gspath)
+            GSBIN="$VALUE"
             ;;
         --cleanmetadata)
             [ -z ${PDFTITLE+x} ] && PDFTITLE=""
@@ -191,6 +191,11 @@ while [ "$1" != "" ]; do
     shift
 done
 
+#=====# CHECKS #=====#
+if [ "$(which $GSBIN)" == "" ]; then
+    echo "  ERROR: Ghostscript is not installed or it's not in the path"
+    exit
+fi
 
 #=====# SET UP ALL THE STUFF #=====#
 echo "=== Welcome to PDF2ARCHIVE ==="
@@ -232,7 +237,7 @@ quit
 #     use 'LC_CTYPE=C && LANG=C && echo "$METADUMP" ...' in the
 #     variable assignments; however, this produces bad PDF files.
 #
-METADUMP=$(gs -dNODISPLAY -q -sFile="$INPUT" $INFOTMPFILE | iconv -f utf-8 -t utf-8 -c)
+METADUMP=$($GSBIN -dNODISPLAY -q -sFile="$INPUT" $INFOTMPFILE | iconv -f utf-8 -t utf-8 -c)
 [ -z ${PDFTITLE+x} ] && PDFTITLE=$(echo "$METADUMP" | grep "__knowninfoTitle: " | sed "s/^__knowninfoTitle: //g")
 [ -z ${PDFAUTHOR+x} ] && PDFAUTHOR=$(echo "$METADUMP" | grep "__knowninfoAuthor: " | sed "s/^__knowninfoAuthor: //g")
 [ -z ${PDFSUBJECT+x} ] && PDFSUBJECT=$(echo "$METADUMP" | grep "__knowninfoSubject: " | sed "s/^__knowninfoSubject: //g")
@@ -255,7 +260,7 @@ fi
 #=====# PRINT DEBUG INFO #=====#
 if $DEBUG; then
     echo "  DEBUG: running PDF2ARCHIVE, version $VERSION"
-    echo "  DEBUG: using Ghostscript binary at $(which gs), version $(gs --version)"
+    echo "  DEBUG: using Ghostscript binary at $(which $GSBIN), version $($GSBIN --version)"
     echo "  DEBUG: the input file is '$INPUT'"
     echo "  DEBUG: the output file is '$OUTPUT'"
     echo "  DEBUG: the intermediate processing file is $TMPFILE"
@@ -335,7 +340,7 @@ echo -n -e "\\x00\\x00\\x02\\x30\\x41\\x44\\x42\\x45\\x02\\x10\\x00\\x00\\x6d\\x
 
 #=====# DO THE ACTUAL CONVERSION #=====#
 echo "  Compressing PDF & embedding fonts..."
-run gs $MSGOPTS \
+run $GSBIN $MSGOPTS \
     -dBATCH -dNOPAUSE -dNOOUTERSAVE \
     -dCompatibilityLevel=1.4 \
     -dEmbedAllFonts=true -dSubsetFonts=true \
@@ -346,7 +351,7 @@ run gs $MSGOPTS \
     -sDEVICE=pdfwrite \
     -sOutputFile=$TMPFILE $INPUT
 echo "  Converting to PDF/A-1B..."
-run gs $MSGOPTS \
+run $GSBIN $MSGOPTS \
     -dPDFA=1 -dBATCH -dNOPAUSE -dNOOUTERSAVE \
     $QUALITYOPTS \
     -dCompatibilityLevel=1.4 -dPDFACompatibilityPolicy=1 \
