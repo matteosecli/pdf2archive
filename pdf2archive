@@ -380,7 +380,7 @@ while [ "$1" != "" ]; do
             fi
             VALIDATE=true
             ;;
-        *.pdf)
+        *)
             if [ "$INPUT" == "" ]; then
                 INPUT=$PARAM
             elif [ "$OUTPUT" == "" ]; then
@@ -391,11 +391,11 @@ while [ "$1" != "" ]; do
                 exit 1
             fi
             ;;
-        *)
-            echo "  ERROR: unknown parameter \"$PARAM\""
-            help
-            exit 1
-            ;;
+       #*)
+       #     echo "  ERROR: unknown parameter \"$PARAM\""
+       #     help
+       #     exit 1
+       #     ;;
     esac
     shift
 done
