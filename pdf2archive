@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# PDF2ARCHIVE 0.4-alpha
+# PDF2ARCHIVE 0.4
 # (C) 2018 Matteo Seclì <secli.matteo@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 
 #=====# INITIALIZE VARIABLES #=====#
 unset CDPATH
-VERSION="0.4-alpha"
+VERSION="0.4"
 INPUT=""
 OUTPUT=""
 QUALITYOPTS=""
@@ -28,6 +28,7 @@ VALIDATE=false
 MSGOPTS="-dQUIET -sstdout=/dev/null"
 VERAMSGOPTS=""
 GSBIN="gs"
+PDFTKBIN="pdftk"
 #ERROPTS="2>/dev/null"
 
 # TODO: REPLACE == WITH = FOR COMPATIBILITY?
@@ -119,7 +120,7 @@ get_source_path() {
 install() {
     if [ "$(which tar)" == "" ]; then
       echo "  ERROR: tar binary not found!"
-      exit
+      exit 1
     fi
     echo "=== Welcome to the installer of PDF2ARCHIVE ==="
     INSTALLPREFIX="$1"
@@ -236,7 +237,7 @@ download_latest() {
 update() {
     if [ "$(which curl)" == "" ]; then
         echo "  ERROR: curl binary not found!"
-        exit
+        exit 1
     fi
     LATESTVERSION=$(curl -s "https://github.com/matteosecli/pdf2archive/releases/latest" | grep -o 'tag/[v.0-9]*' | awk -F/v '{print $2}')
     [ -z "$LATESTVERSION" ] && { echo "  Could not determine the latest version! Check your internet connection."; exit; }
@@ -403,7 +404,7 @@ done
 #=====# CHECKS #=====#
 if [ "$(which $GSBIN)" == "" ]; then
     echo "  ERROR: Ghostscript is not installed or it's not in the path"
-    exit
+    exit 1
 fi
 
 #=====# SET UP ALL THE STUFF #=====#
@@ -411,12 +412,31 @@ echo "=== Welcome to PDF2ARCHIVE ==="
 if [ "$OUTPUT" == "" ]; then
     OUTPUT="${INPUT%.pdf}-PDFA.pdf"
 fi
+
 get_source_path
 TMPFILE=$(mktemp)
 TMPDIR=$(mktemp -d)
 PSTMPFILE=$TMPDIR/PDFA_def.ps
 ICCTMPFILE=$TMPDIR/AdobeRGB1998.icc
 INFOTMPFILE=$TMPDIR/pdf_minimal_info.ps
+TMPINPUTFILE=$(mktemp $TMPDIR/XXXXXXXXXX.pdf)
+
+if [ "$(which $PDFTKBIN)" == "" ]; then
+    echo "  WARN: pdftk is not installed or it's not in the path"
+    cp $INPUT $TMPINPUTFILE
+else
+    echo "  Clean pdf metadata from wrong encoding and invalid utf-8 characters"
+    #Export metadata
+    echo "   Export metadata to $TMPFILE"
+    $PDFTKBIN $INPUT dump_data output $TMPFILE
+    #Replace en dash with dash
+    echo "   Replace en dash in $TMPFILE"
+    sed -i -e 's/&#8211;/-/g' $TMPFILE
+    echo "   Importmetadata into $TMPINPUTFILE"
+    #Import metadata again
+    $PDFTKBIN $INPUT update_info $TMPFILE output $TMPINPUTFILE
+fi
+
 echo \
 "%!PS
 % Extract PDF info in a minimal way.
@@ -447,7 +467,7 @@ quit
 #     use 'LC_CTYPE=C && LANG=C && echo "$METADUMP" ...' in the
 #     variable assignments; however, this produces bad PDF files.
 #
-METADUMP=$($GSBIN -dNODISPLAY -q -sFile="$INPUT" $INFOTMPFILE | iconv -f utf-8 -t utf-8 -c)
+METADUMP=$($GSBIN -dNODISPLAY -q -sFile="$TMPINPUTFILE" $INFOTMPFILE | iconv -f utf-8 -t utf-8 -c)
 [ -z ${PDFTITLE+x} ] && PDFTITLE=$(echo "$METADUMP" | grep "__knowninfoTitle: " | sed "s/^__knowninfoTitle: //g")
 [ -z ${PDFAUTHOR+x} ] && PDFAUTHOR=$(echo "$METADUMP" | grep "__knowninfoAuthor: " | sed "s/^__knowninfoAuthor: //g")
 [ -z ${PDFSUBJECT+x} ] && PDFSUBJECT=$(echo "$METADUMP" | grep "__knowninfoSubject: " | sed "s/^__knowninfoSubject: //g")
@@ -549,6 +569,7 @@ echo -n -e "\\x00\\x00\\x02\\x30\\x41\\x44\\x42\\x45\\x02\\x10\\x00\\x00\\x6d\\x
 
 
 #=====# DO THE ACTUAL CONVERSION #=====#
+# Remove -dUseCIEColor its deprecated
 echo "  Compressing PDF & embedding fonts..."
 run $GSBIN $MSGOPTS \
     -dBATCH -dNOPAUSE -dNOOUTERSAVE \
@@ -559,7 +580,7 @@ run $GSBIN $MSGOPTS \
     -dDownsampleMonoImages=false -dDownsampleGrayImages=false -dDownsampleColorImages=false \
     -dAutoFilterColorImages=false -dAutoFilterGrayImages=false \
     -sDEVICE=pdfwrite \
-    -sOutputFile=$TMPFILE $INPUT
+    -sOutputFile=$TMPFILE $TMPINPUTFILE
 echo "  Converting to PDF/A-1B..."
 run $GSBIN $MSGOPTS \
     -dPDFA=1 -dBATCH -dNOPAUSE -dNOOUTERSAVE \
@@ -571,6 +592,7 @@ run $GSBIN $MSGOPTS \
     -sOutputFile=$OUTPUT $TMPFILE $PSTMPFILE
 echo "  Removing temporary files..."
 rm $TMPFILE
+rm $TMPINPUTFILE
 echo "  Done, now ESSE3 is happy! ;)"
 
 
