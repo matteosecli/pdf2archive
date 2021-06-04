@@ -76,7 +76,7 @@ OPTIONS:
   --validate          Validate  the resulting file. The  validation is done with
                       VeraPDF, you need a working Java installation.
   --validate-only     Perform only the validation on the input file, again using
-  		      VeraPDF
+                      VeraPDF
   --debug             Write additional debug information on screen
   -v, --version       Show the program version
 
@@ -179,9 +179,9 @@ while [ "$1" != "" ]; do
         --validate)
             VALIDATE=true
             ;;
-	--validate-only)
-	    validate $VERAMSGOPTS $2
-	    exit
+        --validate-only)
+            validate $VERAMSGOPTS $2
+            exit
             ;;
         *.pdf)
             if [ "$INPUT" == "" ]; then
