@@ -108,11 +108,16 @@ fi
 
 #=====# VALIDATION #=====#
 
-validate() {
+javaCheck() {
     if [ "$(which java)" == "" ]; then
         echo "  ERROR: Java is not installed or it's not in the path"
+        echo "  Cannot perform validation"
         exit 1
     fi
+}
+
+validate() {
+    javaCheck
     echo "  Validating..."
     echo "  $(./verapdf/verapdf "$1" --extract --flavour 1b --format text "$2")"
 }
@@ -177,6 +182,7 @@ while [ "$1" != "" ]; do
             PDFKEYWORDS=$VALUE
             ;;
         --validate)
+            javaCheck
             VALIDATE=true
             ;;
         --validate-only)
