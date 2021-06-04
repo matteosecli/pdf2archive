@@ -75,6 +75,8 @@ OPTIONS:
                       specified via the command line options.
   --validate          Validate  the resulting file. The  validation is done with
                       VeraPDF, you need a working Java installation.
+  --validate-only     Perform only the validation on the input file, again using
+  		      VeraPDF
   --debug             Write additional debug information on screen
   -v, --version       Show the program version
 
@@ -104,6 +106,16 @@ if [ "$(which gs)" == "" ]; then
     exit
 fi
 
+#=====# VALIDATION #=====#
+
+validate() {
+    if [ "$(which java)" == "" ]; then
+        echo "  ERROR: Java is not installed or it's not in the path"
+        exit 1
+    fi
+    echo "  Validating..."
+    echo "  $(./verapdf/verapdf "$1" --extract --flavour 1b --format text "$2")"
+}
 
 #=====# INPUT PARSER #=====#
 if [ "$1" == "" ]; then
@@ -165,11 +177,11 @@ while [ "$1" != "" ]; do
             PDFKEYWORDS=$VALUE
             ;;
         --validate)
-            if [ "$(which java)" == "" ]; then
-                echo "  ERROR: Java is not installed or it's not in the path"
-                exit 1
-            fi
             VALIDATE=true
+            ;;
+	--validate-only)
+	    validate $VERAMSGOPTS $2
+	    exit
             ;;
         *.pdf)
             if [ "$INPUT" == "" ]; then
@@ -190,7 +202,6 @@ while [ "$1" != "" ]; do
     esac
     shift
 done
-
 
 #=====# SET UP ALL THE STUFF #=====#
 echo "=== Welcome to PDF2ARCHIVE ==="
@@ -361,8 +372,7 @@ echo "  Done, now ESSE3 is happy! ;)"
 
 #=====# VALIDATE THE RESULT #=====#
 if $VALIDATE; then
-    echo "  Validating resulting file..."
-    echo "  $(./verapdf/verapdf $VERAMSGOPTS --extract --flavour 1b --format text $OUTPUT)"
+    validate $VERAMSGOPTS $OUTPUT
 else
     echo "  Suggestion: validate the resulting PDF to be sure it's PDF/A-1B compliant."
 fi
