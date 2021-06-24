@@ -106,6 +106,7 @@ if [ "$(which gs)" == "" ]; then
     exit
 fi
 
+
 #=====# VALIDATION #=====#
 
 javaCheck() {
@@ -117,10 +118,10 @@ javaCheck() {
 }
 
 validate() {
-    javaCheck
     echo "  Validating..."
     echo "  $(./verapdf/verapdf "$1" --extract --flavour 1b --format text "$2")"
 }
+
 
 #=====# INPUT PARSER #=====#
 if [ "$1" == "" ]; then
@@ -186,6 +187,7 @@ while [ "$1" != "" ]; do
             VALIDATE=true
             ;;
         --validate-only)
+            javaCheck
             validate $VERAMSGOPTS $2
             exit
             ;;
