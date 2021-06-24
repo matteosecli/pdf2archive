@@ -29,6 +29,8 @@ where `input.pdf` is the file you want ot convert. You may or may not specify an
                       specified via the command line options.
   --validate          Validate  the resulting file. The  validation is done with
                       VeraPDF, you need a working Java installation.
+  --validate-only     Perform only the validation on the input file, again using
+                      VeraPDF
   --debug             Write additional debug information on screen
   -v, --version       Show the program version
 ```
