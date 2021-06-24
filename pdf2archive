@@ -251,7 +251,7 @@ quit
 #     use 'LC_CTYPE=C && LANG=C && echo "$METADUMP" ...' in the
 #     variable assignments; however, this produces bad PDF files.
 #
-METADUMP=$(gs -dNODISPLAY -q -sFile="$INPUT" $INFOTMPFILE | iconv -f utf-8 -t utf-8 -c)
+METADUMP=$(gs -dNOSAFER -dNODISPLAY -q -sFile="$INPUT" $INFOTMPFILE | iconv -f utf-8 -t utf-8 -c)
 [ -z ${PDFTITLE+x} ] && PDFTITLE=$(echo "$METADUMP" | grep "__knowninfoTitle: " | sed "s/^__knowninfoTitle: //g")
 [ -z ${PDFAUTHOR+x} ] && PDFAUTHOR=$(echo "$METADUMP" | grep "__knowninfoAuthor: " | sed "s/^__knowninfoAuthor: //g")
 [ -z ${PDFSUBJECT+x} ] && PDFSUBJECT=$(echo "$METADUMP" | grep "__knowninfoSubject: " | sed "s/^__knowninfoSubject: //g")
