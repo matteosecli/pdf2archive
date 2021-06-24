@@ -363,7 +363,7 @@ run gs $MSGOPTS \
     -dDownsampleMonoImages=false -dDownsampleGrayImages=false -dDownsampleColorImages=false \
     -dAutoFilterColorImages=false -dAutoFilterGrayImages=false \
     -sDEVICE=pdfwrite \
-    -sOutputFile=$TMPFILE $INPUT
+    -sOutputFile="$TMPFILE" "$INPUT"
 echo "  Converting to PDF/A-1B..."
 run gs $MSGOPTS \
     -dPDFA=1 -dBATCH -dNOPAUSE -dNOOUTERSAVE \
@@ -372,7 +372,7 @@ run gs $MSGOPTS \
     -dUseCIEColor -sProcessColorModel=DeviceRGB -sColorConversionStrategy=RGB \
     -sOutputICCProfile=$ICCTMPFILE \
     -sDEVICE=pdfwrite \
-    -sOutputFile=$OUTPUT $TMPFILE $PSTMPFILE
+    -sOutputFile="$OUTPUT" "$TMPFILE" $PSTMPFILE
 echo "  Removing temporary files..."
 rm $TMPFILE
 echo "  Done, now ESSE3 is happy! ;)"
@@ -380,7 +380,7 @@ echo "  Done, now ESSE3 is happy! ;)"
 
 #=====# VALIDATE THE RESULT #=====#
 if $VALIDATE; then
-    validate $VERAMSGOPTS $OUTPUT
+    validate $VERAMSGOPTS "$OUTPUT"
 else
     echo "  Suggestion: validate the resulting PDF to be sure it's PDF/A-1B compliant."
 fi
